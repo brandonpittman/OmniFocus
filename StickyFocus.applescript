@@ -9,25 +9,22 @@ Copyright 2012 -- [Brandon Pittman](http://brandonpittman.net)
 *)
 
 tell application "OmniFocus"
-  set theWindow to front document window of front document
-	set theTasks to name of selected trees of content of theWindow
+	set theWindow to front document window of front document
+	set theTasks to selected trees of content of theWindow
+	repeat with singleTask in theTasks
+		set ti to name of singleTask
+		set new_ti to value of singleTask
+		set completed of new_ti to true
+		my urlEncode(ti)
+		tell application "System Events" to open location "sticky-notifications://note?title=OmniFocus&message=" & ti
+	end repeat
+	activate
 end tell
-
-repeat with singleTask in theTasks
-	set ti to singleTask
-	urlEncode(ti)
-	
-	tell application "System Events"
-		
-		open location "sticky-notifications://note?title=OmniFocus&message=" & ti
-	end tell
-end repeat
-
 
 on urlEncode(str)
 	local str
 	try
-		return (do shell script "/bin/echo " & quoted form of str & Â¬
+		return (do shell script "/bin/echo " & quoted form of str & Â
 			" | perl -MURI::Escape -lne 'print uri_escape($_)'")
 	on error eMsg number eNum
 		error "Can't urlEncode: " & eMsg number eNum
