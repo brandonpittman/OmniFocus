@@ -11,12 +11,15 @@ Copyright 2012 -- [Brandon Pittman](http://brandonpittman.net)
 tell application "OmniFocus"
 	set theWindow to front document window of front document
 	set theTasks to selected trees of content of theWindow
-	repeat with singleTask in theTasks
+	set theValues to {}
+	repeat with n in theTasks
+		set end of theValues to value of n
+	end repeat
+	repeat with singleTask in theValues
 		set ti to name of singleTask
-		set new_ti to value of singleTask
-		set completed of new_ti to true
 		my urlEncode(ti)
 		tell application "System Events" to open location "sticky-notifications://note?title=OmniFocus&message=" & ti
+		set completed of singleTask to true
 	end repeat
 	activate
 end tell
@@ -30,3 +33,5 @@ on urlEncode(str)
 		error "Can't urlEncode: " & eMsg number eNum
 	end try
 end urlEncode
+
+return theValues
