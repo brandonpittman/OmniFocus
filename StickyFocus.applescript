@@ -33,5 +33,3 @@ on urlEncode(str)
 		error "Can't urlEncode: " & eMsg number eNum
 	end try
 end urlEncode
-
-return theValues
