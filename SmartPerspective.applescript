@@ -26,8 +26,8 @@ on open_perspective()
 				my conditions("Next Actions")
 				return
 			end if
-			set _someCount to count every project of folder "Someday"
-			if _someCount > 0 then
+			set someCount to count every project of folder "Someday"
+			if someCount > 0 then
 				my conditions("Someday")
 				return
 			end if
