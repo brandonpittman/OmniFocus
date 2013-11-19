@@ -31,7 +31,8 @@ on open_perspective()
 				my conditions("Someday")
 				return
 			end if
-			if _someCount is 0 then display notification "You have nothing to do!" with title "OmniFocus"
+			--if _someCount is 0 then display notification "You have nothing to do!" with title "OmniFocus"
+			my conditions("Inbox")
 		end tell
 	end tell
 end open_perspective
