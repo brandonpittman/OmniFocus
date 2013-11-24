@@ -1,0 +1,7 @@
+{
+    changed = {
+        keyEquivalent = "^O";
+    };
+    isDelta       = 1;
+    uuid          = '03B35B47-9836-4EE1-9AFF-0D01D6F249F0';
+}

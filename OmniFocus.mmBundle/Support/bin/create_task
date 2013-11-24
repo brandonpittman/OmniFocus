@@ -1,0 +1,43 @@
+#!/usr/bin/osascript
+
+-- Create a note using the Quick Entry view. When the view is closed, focus is returned to MailMate.
+-- A previous version of this used `system attribute` to pass values, but it appears to have non-solveable UTF8 issues.
+
+-- ToDo:
+--  What about other properties (project, context, ...)
+
+on run argv
+	set theFilename to item 1 of argv
+	set theName to do shell script "head -n1 " & theFilename
+	set theNote to do shell script "tail -n+2 " & theFilename
+
+	tell application "OmniFocus"
+		tell default document
+			--tell quick entry
+				set theTask to make new inbox task with properties {name:theName, note:theNote}
+				select {theTask}
+				set note of theTask to theNote
+				open
+				--tell application "System Events" to keystroke tab
+			--end tell
+		end tell
+	end tell
+end run
+
+-- The following might be useful alternative approaches:
+--
+-- Create a note without activating OmniFocus or opening the Quick Entry view.
+-- tell application "OmniFocus"
+-- 	tell default document
+-- 		make new inbox task with properties {name:theName, note:theNote}
+-- 	end tell
+-- end tell
+--
+-- END
+--
+-- Create a note using the `omnifocus:` URL scheme. Leaves OmniFocus in an activated state.
+--  Note: Could not find documentation for the omnifocus: URL scheme. What is possible?
+-- /System/Library/Frameworks/Ruby.framework/Versions/1.8/usr/bin/ruby -wKU
+
+-- require 'uri'
+-- system ("open", "omnifocus:///add?name=" + URI::escape(ENV["MM_NAME"]) + "&note=Email:%20message://%253c" + URI::escape(ENV["MM_MESSAGE_ID"]) + "%253e")
