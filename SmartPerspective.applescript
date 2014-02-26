@@ -6,7 +6,8 @@ on open_perspective()
 	tell application "OmniFocus"
 		tell default document
 			
-			if (count inbox tasks) > 0 then --this is for your Inbox
+			set incomplete to inbox tasks where completed is false
+			if (count incomplete) > 0 then --this is for your Inbox
 				my conditions("Inbox")
 				return
 			end if
@@ -26,8 +27,8 @@ on open_perspective()
 				my conditions("Next Actions")
 				return
 			end if
-			set someCount to count every project of folder "Someday"
-			if someCount > 0 then
+			set _someCount to count every project of folder "Someday"
+			if _someCount > 0 then
 				my conditions("Someday")
 				return
 			end if
