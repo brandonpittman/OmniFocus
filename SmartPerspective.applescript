@@ -6,11 +6,13 @@ on open_perspective()
 	tell application "OmniFocus"
 		tell default document
 			
+			(*
 			set incomplete to inbox tasks where completed is false
 			if (count incomplete) > 0 then --this is for your Inbox
 				my conditions("Inbox")
 				return
 			end if
+*)
 			
 			set weekly to number of available tasks of flattened project "weekly"
 			set daily to number of available tasks of flattened project "daily"
@@ -28,10 +30,10 @@ on open_perspective()
 				return
 			end if
 			set _someCount to count every project of folder "Someday"
-			if _someCount > 0 then
-				my conditions("Someday")
-				return
-			end if
+			#if _someCount > 0 then
+			#	my conditions("Someday")
+			#	return
+			#end if
 			--if _someCount is 0 then display notification "You have nothing to do!" with title "OmniFocus"
 			my conditions("Inbox")
 		end tell
