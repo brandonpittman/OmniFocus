@@ -29,13 +29,11 @@ on open_perspective()
 				my conditions("Next Actions")
 				return
 			end if
-			set _someCount to count every project of folder "Someday"
-			#if _someCount > 0 then
-			#	my conditions("Someday")
-			#	return
-			#end if
-			--if _someCount is 0 then display notification "You have nothing to do!" with title "OmniFocus"
-			my conditions("Inbox")
+			if (count (every inbox task)) > 0 then
+				my conditions("Inbox")
+				return
+			end if
+			my conditions("Forecast")
 		end tell
 	end tell
 end open_perspective
