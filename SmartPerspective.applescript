@@ -1,10 +1,14 @@
-# Big thanks to [ediventurin](https://twitter.com/ediventurin) for additions to SmartPerspective!
+# This version of SmartPerspective includes support for Location Helper. It's free in the App Store.
+#
+# http://www.mousedown.net/mouseware/LocationHelper.html
+# https://itunes.apple.com/us/app/location-helper-for-applescript/id488536386?mt=12
 
 on run
 	open_perspective()
 end run
 
 on open_perspective()
+	
 	tell application "OmniFocus"
 		tell default document
 			
@@ -14,17 +18,35 @@ on open_perspective()
 				return
 			end if
 			
-			# Routines
-			set nRoutines to count (every available task of every flattened context where name of containing project's folder = "Routines")
-			if nRoutines > 0 then
-				my conditions("Routines")
-				return
-			end if
+			# set myWork to the coordinates of the location you want to check on
+			set myWork to {XX.XXXXXXX, XX.XXXXXXXX}
+			
+			# This is wrapped in a try block in case you don't have Location Helper installed.
+			try
+				tell application "Location Helper"
+					set distanceFromWork to get distance from coordinates myWork
+				end tell
+				
+				# 2000 == 2km
+				# Set this is whatever you like. I use 2km because I have multiple locations I'm stationed at.
+				if distanceFromWork < 2000 then
+					# Pull up work perspective
+					my conditions("Work")
+					return
+				end if
+			end try
 			
 			# Flagged
 			set nFlagged to count (every available task of every flattened context whose flagged is true)
 			if (nFlagged) > 0 then
 				my conditions("Flagged")
+				return
+			end if
+			
+			# Routines
+			set nRoutines to count (every available task of every flattened context where name of containing project's folder = "Routines")
+			if nRoutines > 0 then
+				my conditions("Routines")
 				return
 			end if
 			
