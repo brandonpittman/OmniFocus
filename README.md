@@ -1,10 +1,14 @@
 OmniFocus
 ===========
 
-## StickyFocus
+## SmartMorning.js
+
+Smartly defer a task to 8AM of the **next business day**.
+
+## StickyFocus.applescript
 Handy AppleScript for creating [Sticky Notifications](http://instinctivecode.com/sticky-notifications/) from OmniFocus tasks. The script will take any selected project or task in OmniFocus and create a Sticky Notification using the Sticky Notification URL scheme.
 
-## SmartPerspective
+## SmartPerspective.applescript
 
 Handy AppleScript for smartly opening the perspective you *should* be looking at.
 
