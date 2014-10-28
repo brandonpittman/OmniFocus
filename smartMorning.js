@@ -106,17 +106,13 @@ return((r[1].length===0)?r[0]:null);};};Date.parseExact=function(s,fx){return Da
 
 // Original Code
 app = Application('OmniFocus')
-app.includeStandardAdditions = true
-doc = app.defaultDocument
 items = app.windows[0].content.selectedTrees.value()
 
 today = new Date
-tomorrow = Date.parse('tomorrow')
-monday = Date.parse('next Monday')
 weekend = (today.is().friday() == true) || (today.is().saturday() == true)
 
 function checkDay() {
-if (weekend) {
+	if (weekend) {
 		next = Date.parse('next Monday')
 		next.setHours(8)
 		return next
