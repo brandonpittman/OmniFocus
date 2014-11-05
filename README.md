@@ -1,6 +1,10 @@
 OmniFocus
 ===========
 
+## regexDefer.js
+
+`Usage: osascript -l JavaScript 'something' 'next Saturday'`
+
 ## SmartMorning.js
 
 Smartly defer a task to 8AM of the **next business day**.
