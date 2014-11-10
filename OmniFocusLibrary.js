@@ -18,9 +18,10 @@ function allProjects() {
 	return doc.flattenedProjects.whose({completed: false})();
 }
 
-function tasksWithContext(context) {
+function tasksWithContext(context, inputTasks) {
 	tasks = [];
-	allTasks().forEach(function(task, index) {
+	tasksToProcess = inputTasks ? inputTasks : allTasks();
+	tasksToProcess.forEach(function(task, index) {
 		if (task.context() !== null) {
 			if (searchString(context).test(task.context().name())) {
 				tasks.push(task);
@@ -30,9 +31,10 @@ function tasksWithContext(context) {
 	return tasks;
 }
 
-function projectsWithName(name) {
+function projectsWithName(name, inputProjects) {
 	projects = [];
-	allProjects().forEach(function(project, index) {
+	projectsToProcess = inputProjects ? inputProjects : allProjects();
+	projectsToProcess.forEach(function(project, index) {
 		if (project.container() !== null) {
 			if (searchString(name).test(project.name())) {
 				projects.push(project);
@@ -42,9 +44,10 @@ function projectsWithName(name) {
 	return projects;
 }
 
-function tasksWithName(name) {
+function tasksWithName(name, inputTasks) {
 	tasks = [];
-	allTasks().forEach(function(task, index) {
+	tasksToProcess = inputTasks ? inputTasks : allTasks();
+	tasksToProcess.forEach(function(task, index) {
 		if (searchString(name).test(task.name())) {
 			tasks.push(task);
 		}
@@ -52,7 +55,7 @@ function tasksWithName(name) {
 	return tasks;
 }
 
-function allWithName(searchTerm) {
+function allWithName(searchTerm, inputTasks) {
 	tasks = tasksWithName(searchTerm).concat(tasksWithContext(searchTerm)).concat(projectsWithName(searchTerm));
 	return tasks;
 }
