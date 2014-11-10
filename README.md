@@ -25,9 +25,9 @@ I intended to include natural language date parsing in this script, and I've bee
 
 - `allTasks()` — all tasks in your default document
 - `allProjects()` — all projects in your default document
-- `tasksWithName(name)` — all tasks that fuzzy match `name`
-- `tasksWithContext(name)` — all tasks that have a context that fuzzy match `name`
-- `projectsWithName(name)` — all projects that fuzzy match `name`
+- `tasksWithName(name, inputTasks)` — all tasks that fuzzy match `name`
+- `tasksWithContext(name, inputTasks)` — all tasks that have a context that fuzzy match `name`
+- `projectsWithName(name, inputProjects)` — all projects that fuzzy match `name`
 - `allWithName(name)` — all tasks that fuzzy match `name` with a task title, context or containing project
 - `setDefer(tasks, deferDate)` — defer an array of tasks with `deferDate`
 - `setDue(tasks, dueDate)` — set an array of tasks' due date with `dueDate`
