@@ -4,39 +4,24 @@
  */
 
 /**
- *
- * @class Properties
- *
- */
-
-/**
  * the OmniFocus application object
  *
- * @property app
- * @return {Object} OmniFocus object
+ * @type {Object}
  */
 app = Application('OmniFocus');
 
 /**
  * allows OmniFocus to use the standard additions scripting addition
  *
- * @property includeStandardAdditions
  */
 app.includeStandardAdditions = true;
 
 /**
  * the default document
  *
- * @property doc
+ * @type {Object}
  */
 doc = app.defaultDocument;
-
-
-/**
- *
- * @class Getters
- *
- */
 
 /**
  * Returns selected tasks
@@ -165,12 +150,6 @@ function prefixTasksWith(tasks,text) {
 		task.name = text + ' ' + task.name();
 	});
 }
-
-/**
- * methods for setting properties or variables
- *
- * @class Setters
- */
 
 /**
  * the term to be searched for

@@ -2,127 +2,99 @@
 <html lang="en">
 <head>
     <meta charset="utf-8">
-    <title></title>
-    <link rel="stylesheet" href="http://yui.yahooapis.com/3.9.1/build/cssgrids/cssgrids-min.css">
-    <link rel="stylesheet" href="./assets/vendor/prettify/prettify-min.css">
-    <link rel="stylesheet" href="./assets/css/main.css" id="site_styles">
-    <link rel="shortcut icon" type="image/png" href="./assets/favicon.png">
-    <script src="http://yui.yahooapis.com/combo?3.9.1/build/yui/yui-min.js"></script>
+    <title>JSDoc: Index</title>
+
+    <script src="scripts/prettify/prettify.js"> </script>
+    <script src="scripts/prettify/lang-css.js"> </script>
+    <!--[if lt IE 9]>
+      <script src="//html5shiv.googlecode.com/svn/trunk/html5.js"></script>
+    <![endif]-->
+    <link type="text/css" rel="stylesheet" href="styles/prettify-tomorrow.css">
+    <link type="text/css" rel="stylesheet" href="styles/jsdoc-default.css">
 </head>
-<body class="yui3-skin-sam">
 
-<div id="doc">
-    <div id="hd" class="yui3-g header">
-        <div class="yui3-u-3-4">
-            
-                <h1><img src="./assets/css/logo.png" title=""></h1>
-            
-        </div>
-        <div class="yui3-u-1-4 version">
-            <em>API Docs for: </em>
-        </div>
-    </div>
-    <div id="bd" class="yui3-g">
+<body>
 
-        <div class="yui3-u-1-4">
-            <div id="docs-sidebar" class="sidebar apidocs">
-                <div id="api-list">
-    <h2 class="off-left">APIs</h2>
-    <div id="api-tabview" class="tabview">
-        <ul class="tabs">
-            <li><a href="#api-classes">Classes</a></li>
-            <li><a href="#api-modules">Modules</a></li>
-        </ul>
+<div id="main">
 
-        <div id="api-tabview-filter">
-            <input type="search" id="api-filter" placeholder="Type to filter APIs">
-        </div>
+    <h1 class="page-title">Index</h1>
 
-        <div id="api-tabview-panel">
-            <ul id="api-classes" class="apis classes">
-            
-                <li><a href="./classes/Getters.html">Getters</a></li>
-            
-                <li><a href="./classes/Properties.html">Properties</a></li>
-            
-                <li><a href="./classes/Setters.html">Setters</a></li>
-            
-            </ul>
+    
 
-            <ul id="api-modules" class="apis modules">
-            
-                <li><a href="./modules/OmniFocus.html">OmniFocus</a></li>
-            
-            </ul>
-        </div>
-    </div>
+
+
+    
+
+
+    <h3> </h3>
+
+
+
+
+
+
+
+
+
+
+    
+
+
+
+
+    <section>
+        <article><h1>OmniFocus</h1><h2>OmniFocusLibrary.js</h2><p>You'll need to compile this as <code>OmniFocus.scpt</code> and save it at <code>~/Library/Script Libraries</code> so that you can import it in another script.</p>
+<h3>Usage</h3><pre class="prettyprint source lang-javascript"><code>of = Library('OmniFocus')
+
+codingTasks = of.tasksWithContext('coding')
+today = new Date
+today.setHours(17)
+of.setDefer(codingTasks, today)</code></pre><h3>Caveats</h3><p>I intended to include natural language date parsing in this script, and I've been trying to get the <strong>chrono</strong> library to work in my OmniFocus library, but to no avail. Anyone willing to help with this would have my deepest thanks. As it stands, you need to pass a date object into any function that deals with setting deferDate or dueDate.</p>
+<h3>Available functions</h3><ul>
+<li><code>allTasks()</code> — all tasks in your default document</li>
+<li><code>allProjects()</code> — all projects in your default document</li>
+<li><code>tasksWithName(name, inputTasks)</code> — all tasks that fuzzy match <code>name</code> — <code>inputTasks</code> defaults to <code>allTasks</code></li>
+<li><code>tasksWithContext(name, inputTasks)</code> — all tasks that have a context that fuzzy match <code>name</code> — <code>inputTasks</code> defaults to <code>allTasks</code></li>
+<li><code>projectsWithName(name, inputProjects)</code> — all projects that fuzzy match <code>name</code> — <code>inputProjects</code> defaults to <code>allProjects</code></li>
+<li><code>allWithName(name)</code> — all tasks that fuzzy match <code>name</code> with a task title, context or containing project</li>
+<li><code>setDefer(tasks, deferDate)</code> — defer an array of tasks with <code>deferDate</code></li>
+<li><code>setDue(tasks, dueDate)</code> — set an array of tasks' due date with <code>dueDate</code></li>
+<li><code>setContext(tasks, contextName)</code> — set an array of tasks' context to <code>contextName</code></li>
+<li><code>inboxTasks()</code> — all inbox tasks</li>
+<li><code>getContext(contextName)</code> — gets the first context object that matches <code>contextName</code></li>
+<li><code>getProject(projectName)</code> — gets the first project object that matches <code>projectName</code></li>
+<li><code>newTask(text, place, deferDate, dueDate)</code> — creates a new OmniFocus task object</li>
+<li><code>pushTask(task, project)</code> — push <code>task</code> to <code>project</code> array</li>
+<li><code>prefixTasksWith(tasks,text)</code> — prefix each task in <code>tasks</code> with <code>text</code></li>
+<li><code>updateInboxTasks(context, project, deferDate, dueDate)</code> — update all inbox tasks with the same <code>context</code>, <code>deferDate</code>, and <code>dueDate</code> and add them to <code>project</code></li>
+</ul>
+<h2>regexDefer.js</h2><p><code>Usage: osascript -l JavaScript 'something' 'next Saturday'</code></p>
+<h2>SmartMorning.js</h2><p>Smartly defer a task to 8AM of the <strong>next business day</strong>.</p>
+<h2>StickyFocus.applescript</h2><p>Handy AppleScript for creating <a href="http://instinctivecode.com/sticky-notifications/">Sticky Notifications</a> from OmniFocus tasks. The script will take any selected project or task in OmniFocus and create a Sticky Notification using the Sticky Notification URL scheme.</p>
+<h2>SmartPerspective.applescript</h2><p>Handy AppleScript for smartly opening the perspective you <em>should</em> be looking at.</p>
+<h2>Birthdays2OmniFocus</h2><p>Create a &quot;Birthdays&quot; project in OmniFocus and create birthday reminders for each person with a birthday assigned in your OS X Contacts.app.</p>
+<p><em>Release Notes (1.0)</em></p>
+<p>This is the 1.0 push. It works well for adding the initial birthday reminders. It will create the &quot;Birthdays&quot; project if it doesn't already exist. It references a &quot;Communications&quot; perspective but doesn't create it as of now. You can run it later on to update the project with new birthday reminders and it checks if each birthday already exists in OmniFocus. I'm not totally sure why, but it will occasionally go wonky and create multiple entries.</p></article>
+    </section>
+
+
+
+
+
+
 </div>
 
-            </div>
-        </div>
-        <div class="yui3-u-3-4">
-                <div id="api-options">
-        Show:
-        <label for="api-show-inherited">
-            <input type="checkbox" id="api-show-inherited" checked>
-            Inherited
-        </label>
+<nav>
+    <h2><a href="index.html">Index</a></h2><h3>Modules</h3><ul><li><a href="module-OmniFocus.html">OmniFocus</a></li></ul>
+</nav>
 
-        <label for="api-show-protected">
-            <input type="checkbox" id="api-show-protected">
-            Protected
-        </label>
+<br clear="both">
 
-        <label for="api-show-private">
-            <input type="checkbox" id="api-show-private">
-            Private
-        </label>
-        <label for="api-show-deprecated">
-            <input type="checkbox" id="api-show-deprecated">
-            Deprecated
-        </label>
+<footer>
+    Documentation generated by <a href="https://github.com/jsdoc3/jsdoc">JSDoc 3.3.0-alpha10</a> on Mon Nov 10 2014 22:41:08 GMT+0900 (JST)
+</footer>
 
-    </div>
-
-
-            <div class="apidocs">
-                <div id="docs-main">
-                    <div class="content">
-                            <div class="apidocs">
-        <div id="docs-main" class="content">
-            <p>
-            Browse to a module or class using the sidebar to view its API documentation.
-            </p>
-
-            <h2>Keyboard Shortcuts</h2>
-
-            <ul>
-                <li><p>Press <kbd>s</kbd> to focus the API search box.</p></li>
-
-                <li><p>Use <kbd>Up</kbd> and <kbd>Down</kbd> to select classes, modules, and search results.</p></li>
-
-                <li class="mac-only"><p>With the API search box or sidebar focused, use <kbd><span class="cmd">&#x2318;</span>-Left</kbd> or <kbd><span class="cmd">&#x2318;</span>-Right</kbd> to switch sidebar tabs.</p></li>
-
-                <li class="pc-only"><p>With the API search box or sidebar focused, use <kbd>Ctrl+Left</kbd> and <kbd>Ctrl+Right</kbd> to switch sidebar tabs.</p></li>
-            </ul>
-        </div>
-    </div>
-
-
-
-                    </div>
-                </div>
-            </div>
-        </div>
-    </div>
-</div>
-<script src="./assets/vendor/prettify/prettify-min.js"></script>
-<script>prettyPrint();</script>
-<script src="./assets/js/yui-prettify.js"></script>
-<script src="./assets/../api.js"></script>
-<script src="./assets/js/api-filter.js"></script>
-<script src="./assets/js/api-list.js"></script>
-<script src="./assets/js/api-search.js"></script>
-<script src="./assets/js/apidocs.js"></script>
+<script> prettyPrint(); </script>
+<script src="scripts/linenumber.js"> </script>
 </body>
 </html>
