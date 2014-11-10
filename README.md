@@ -1,6 +1,26 @@
 OmniFocus
 ===========
 
+## OmniFocusLibrary.js
+
+You'll need to compile this as `OmniFocus.scpt` and save it at `~/Library/Script Libraries` so that you can import it in another script.
+
+### Usage
+
+```javascript
+of = Library('OmniFocus')
+
+codingTasks = of.tasksWithContext('coding')
+today = new Date
+today.setHours(17)
+of.setDefer(codingTasks, today)
+
+```
+
+### Caveats
+
+I intended to include natural language date parsing in this script, and I've been trying to get the **chrono** library to work in my OmniFocus library, but to no avail. Anyone willing to help with this would have my deepest thanks. As it stands, you need to pass a date object into any function that deals with setting deferDate or dueDate.
+
 ## regexDefer.js
 
 `Usage: osascript -l JavaScript 'something' 'next Saturday'`
