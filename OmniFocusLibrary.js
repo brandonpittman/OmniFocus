@@ -2980,7 +2980,3 @@ function prefixTasksWith(tasks,text) {
 		task.name = text + ' ' + task.name()
 	})
 }
-
-function momentTest() {
-	return moment()._d
-}
