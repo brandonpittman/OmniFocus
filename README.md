@@ -23,22 +23,22 @@ I intended to include natural language date parsing in this script, and I've bee
 
 ### Available functions
 
-- `allTasks()` --- all tasks in your default document
-- `allProjects()` --- all projects in your default document
-- `tasksWithName(name)` --- all tasks that fuzzy match `name`
-- `tasksWithContext(name)` --- all tasks that have a context that fuzzy match `name`
-- `projectsWithName(name)` --- all projects that fuzzy match `name`
-- `allWithName(name)` --- all tasks that fuzzy match `name` with a task title, context or containing project
-- `setDefer(tasks, deferDate)` --- defer an array of tasks with `deferDate`
-- `setDue(tasks, dueDate)` --- set an array of tasks' due date with `dueDate`
-- `setContext(tasks, contextName)` --- set an array of tasks' context to `contextName`
-- `inboxTasks()` --- all inbox tasks
-- `getContext(contextName)` --- gets the first context object that matches `contextName`
-- `getProject(projectName)` --- gets the first project object that matches `projectName`
-- `newTask(text, place, deferDate, dueDate)` --- creates a new OmniFocus task object
-- `pushTask(task, project)` --- push `task` to `project` array
-- `prefixTasksWith(tasks,text)` --- prefix each task in `tasks` with `text`
-- `updateInboxTasks(context, project, deferDate, dueDate)` update all inbox tasks with the same `context`, `deferDate`, and `dueDate` and add them to `project`
+- `allTasks()` — all tasks in your default document
+- `allProjects()` — all projects in your default document
+- `tasksWithName(name)` — all tasks that fuzzy match `name`
+- `tasksWithContext(name)` — all tasks that have a context that fuzzy match `name`
+- `projectsWithName(name)` — all projects that fuzzy match `name`
+- `allWithName(name)` — all tasks that fuzzy match `name` with a task title, context or containing project
+- `setDefer(tasks, deferDate)` — defer an array of tasks with `deferDate`
+- `setDue(tasks, dueDate)` — set an array of tasks' due date with `dueDate`
+- `setContext(tasks, contextName)` — set an array of tasks' context to `contextName`
+- `inboxTasks()` — all inbox tasks
+- `getContext(contextName)` — gets the first context object that matches `contextName`
+- `getProject(projectName)` — gets the first project object that matches `projectName`
+- `newTask(text, place, deferDate, dueDate)` — creates a new OmniFocus task object
+- `pushTask(task, project)` — push `task` to `project` array
+- `prefixTasksWith(tasks,text)` — prefix each task in `tasks` with `text`
+- `updateInboxTasks(context, project, deferDate, dueDate)` — update all inbox tasks with the same `context`, `deferDate`, and `dueDate` and add them to `project`
 
 ## regexDefer.js
 
