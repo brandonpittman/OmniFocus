@@ -32,6 +32,11 @@ I intended to include natural language date parsing in this script, and I've bee
 - `setDefer(tasks, deferDate)` --- defer an array of tasks with `deferDate`
 - `setDue(tasks, dueDate)` --- set an array of tasks' due date with `dueDate`
 - `setContext(tasks, contextName)` --- set an array of tasks' context to `contextName`
+- `inboxTasks()` --- all inbox tasks
+- `getContext(contextName)` --- gets the first context object that matches `contextName`
+- `getProject(projectName)` --- gets the first project object that matches `projectName`
+- `newTask(text, place, deferDate, dueDate)` --- creates a new OmniFocus task object
+- `pushTask(task, project)` --- push `task` to `project` array
 
 ## regexDefer.js
 
