@@ -37,6 +37,8 @@ I intended to include natural language date parsing in this script, and I've bee
 - `getProject(projectName)` --- gets the first project object that matches `projectName`
 - `newTask(text, place, deferDate, dueDate)` --- creates a new OmniFocus task object
 - `pushTask(task, project)` --- push `task` to `project` array
+- `prefixTasksWith(tasks,text)` --- prefix each task in `tasks` with `text`
+- `updateInboxTasks(context, project, deferDate, dueDate)` update all inbox tasks with the same `context`, `deferDate`, and `dueDate` and add them to `project`
 
 ## regexDefer.js
 
