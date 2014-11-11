@@ -1,17 +1,20 @@
 /**
  *
- * @module OmniFocus
+ * @file OmniFocusLibrary.js
+ * @author Brandon Pittman
  */
 
 /**
  * the OmniFocus application object
  *
- * @type {Object}
+ * @constant {object}
  */
 app = Application('OmniFocus');
 
 /**
  * allows OmniFocus to use the standard additions scripting addition
+ *
+ * @property {boolean} includeStandardAdditions - if the app object can use the Standard Additions
  *
  */
 app.includeStandardAdditions = true;
@@ -19,7 +22,7 @@ app.includeStandardAdditions = true;
 /**
  * the default document
  *
- * @type {Object}
+ * @constant {object}
  */
 doc = app.defaultDocument;
 
