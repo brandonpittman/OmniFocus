@@ -73,7 +73,7 @@ function tasksWithContext(context, inputTasks) {
 /**
 *
 * @method projectsWithName
-* @param {string} [name] Name of projects to search
+* @param {string} name Name of projects to search
 * @param {array} [inputProjects=allProjects()] Array of projects to search
 * @return {array} Array of matching projects
 *
@@ -94,7 +94,7 @@ function projectsWithName(name, inputProjects) {
 /**
 *
 * @method tasksWithName
-* @param {string} [name] name of tasks to search for
+* @param {string} name name of tasks to search for
 * @param {array} [inputTasks=allTasks()] tasks to search
 * @return {array} Matched tasks
 *
@@ -113,7 +113,7 @@ function tasksWithName(name, inputTasks) {
 /**
 *
 * @method allWithName
-* @param {string} [searchTerm] Term to search for
+* @param {string} searchTerm Term to search for
 * @return {array} Matching tasks
 *
 */
@@ -125,8 +125,8 @@ function allWithName(searchTerm) {
 /**
 *
 * @method setDefer
-* @param {array} [tasks] Tasks to defer
-* @param {object} [date] Date to defer tasks to
+* @param {array} tasks Tasks to defer
+* @param {object} date Date to defer tasks to
 *
 */
 function setDefer(tasks, date) {
@@ -139,8 +139,8 @@ function setDefer(tasks, date) {
 /**
 *
 * @method setDue
-* @param {array} [tasks] Tasks to make due
-* @param {object} [date] Date to make tasks due on
+* @param {array} tasks Tasks to make due
+* @param {object} date Date to make tasks due on
 *
 */
 function setDue(tasks, date) {
@@ -153,8 +153,8 @@ function setDue(tasks, date) {
 /**
 *
 * @method setContext
-* @param {array} [tasks] Tasks to set context for
-* @param {string} [context] Context to set tasks to
+* @param {array} tasks Tasks to set context for
+* @param {string} context Context to set tasks to
 *
 */
 function setContext(tasks, context) {
@@ -167,7 +167,7 @@ function setContext(tasks, context) {
 /**
 *
 * @method getContext
-* @param {string} [context] Context name to search for
+* @param {string} context Context name to search for
 * @return {object} Context object
 *
 */
@@ -178,7 +178,7 @@ function getContext(context) {
 /**
 *
 * @method getProject
-* @param {string} [project] Project name to search for
+* @param {string} project Project name to search for
 * @return {object} Project object
 *
 */
@@ -199,8 +199,8 @@ function inboxTasks() {
 /**
 *
 * @method newTask
-* @param {string} [name] Name of new task
-* @param {string} [context] Context of new task
+* @param {string} name Name of new task
+* @param {string} context Context of new task
 * @param {object} [deferDate] Defer date of new task
 * @param {object} [dueDate] Due date of new task
 * @return {object} New task object
@@ -213,8 +213,8 @@ function newTask(text, context, deferDate, dueDate) {
 /**
 *
 * @method pushTask
-* @param {object} [task] Task object to add to `project`
-* @param {string} [project] Name of project to add task to
+* @param {object} task Task object to add to `project`
+* @param {string} project Name of project to add task to
 * @return {number} Number of tasks in project after adding new task
 */
 function pushTask(task, project) {
@@ -224,10 +224,10 @@ function pushTask(task, project) {
 /**
 *
 * @method updateInboxTasks
-* @param {string} [context] Context of new task
-* @param {string} [project] Name of project for new task
-* @param {object} [deferDate] Defer date of new task
-* @param {object} [dueDate] Due date of new task
+* @param {string} context Context of new task
+* @param {string} project Name of project for new task
+* @param {object} deferDate Defer date of new task
+* @param {object} dueDate Due date of new task
 * @return {object} New task object
 *
 */
@@ -236,8 +236,8 @@ function updateInboxTasks(context, project, deferDate, dueDate) {
 	newProject = getProject(project);
 	inboxTasks().forEach(function(task) {
 		task.context = newContext;
-		task.deferDate = deferDate;
-		task.dueDate = dueDate;
+		task.deferDate = deferDate || null;
+		task.dueDate = dueDate || null;
 		pushTask(task, newProject);
 	});
 }
@@ -245,8 +245,8 @@ function updateInboxTasks(context, project, deferDate, dueDate) {
 /**
 *
 * @method prefixTasksWith
-* @param {array} [tasks] Tasks to modify
-* @param {string} [text] Text to prefix with
+* @param {array} tasks Tasks to modify
+* @param {string} text Text to prefix with
 *
 */
 function prefixTasksWith(tasks,text) {
