@@ -7,22 +7,16 @@
 /**
  * the OmniFocus application object
  *
- * @constant {object}
+ * @namespace
+ * @property {boolean} includeStandardAdditions - if the app object can use the Standard Additions
  */
 app = Application('OmniFocus');
-
-/**
- * allows OmniFocus to use the standard additions scripting addition
- *
- * @property {boolean} includeStandardAdditions - if the app object can use the Standard Additions
- *
- */
 app.includeStandardAdditions = true;
 
 /**
  * the default document
  *
- * @constant {object}
+ * @namespace
  */
 doc = app.defaultDocument;
 
@@ -229,8 +223,8 @@ function pushTask(task, project) {
 * @method updateInboxTasks
 * @param {string} context Context of new task
 * @param {string} project Name of project for new task
-* @param {object} deferDate Defer date of new task
-* @param {object} dueDate Due date of new task
+* @param {object} [deferDate] Defer date of new task
+* @param {object} [dueDate] Due date of new task
 * @return {object} New task object
 *
 */
@@ -267,4 +261,18 @@ function prefixTasksWith(tasks,text) {
  */
 function searchString(term) {
 	return new RegExp(term, 'i');
+}
+
+/**
+* The parse will create a new task but unlike the newTask() method, parse()
+* immediately creates the task in the default document.
+*
+* @method parse
+* @param {string} string - String to parse as task
+* @return {object} OmniFocus task object
+* @example
+* of.parse('Do something! @home ::misc #4pm #tomorrow')
+*/
+function parse(string) {
+	app.parseTasksInto(doc, {withTransportText: string})
 }
