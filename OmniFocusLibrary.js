@@ -274,5 +274,47 @@ function searchString(term) {
 * of.parse('Do something! @home ::misc #4pm #tomorrow')
 */
 function parse(string) {
-	app.parseTasksInto(doc, {withTransportText: string})
+	app.parseTasksInto(doc, {withTransportText: string});
+}
+
+/**
+*
+* Log names of tasks to the console
+*
+* @method logName
+* @param {array} tasks - An array of OmniFocus tasks
+*
+*/
+function logName(tasks) {
+  tasks.forEach(function(task) {
+    console.log(task.name());
+  });
+}
+
+/**
+*
+* Log contexts of tasks to the console
+*
+* @method logContext
+* @param {array} tasks - An array of OmniFocus tasks
+*
+*/
+function logContext(tasks) {
+  tasks.forEach(function(task) {
+    console.log(task.context());
+  });
+}
+
+/**
+*
+* Log projects of tasks to the console
+*
+* @method logProject
+* @param {array} tasks - An array of OmniFocus tasks
+*
+*/
+function logProject(tasks) {
+  tasks.forEach(function(task) {
+    console.log(task.project());
+  });
 }
