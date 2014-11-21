@@ -151,11 +151,13 @@ function setDue(tasks, date) {
 *
 * @method setContext
 * @param {array} tasks Tasks to set context for
-* @param {string} context Context to set tasks to
+* @param {(string|function)} context Context to set tasks to
+*   `context` can be a string of a context you know exists, provide your own context
+*   or you can use the `getContext` function to grab a context
 *
 */
 function setContext(tasks, context) {
-	newContext = doc.flattenedContexts.whose({name: context})[0];
+  newContext = typeof context === 'string' ? getContext(context) : context;
 	tasks.forEach(function(task) {
 		task.context = newContext;
 	});
@@ -165,7 +167,7 @@ function setContext(tasks, context) {
 *
 * @method getContext
 * @param {string} context Context name to search for
-* @return {object} Context object
+* @return {function} Context object
 *
 */
 function getContext(context) {
@@ -176,7 +178,7 @@ function getContext(context) {
 *
 * @method getProject
 * @param {string} project Project name to search for
-* @return {object} Project object
+* @return {function} Project object
 *
 */
 function getProject(project) {
@@ -195,27 +197,22 @@ function inboxTasks() {
 
 /**
 *
-* @method newTask
+* @method makeTask
 * @param {string} name Name of new task
-* @param {string} context Context of new task
+* @param {string|function} context Context of new task
 * @param {object} [deferDate] Defer date of new task
 * @param {object} [dueDate] Due date of new task
-* @return {object} New task object
+* @param {string|function} [project] Project to add task to
 *
 */
-function newTask(text, context, deferDate, dueDate) {
-	return app.Task({name: text, context: getContext(context), deferDate: null || deferDate, dueDate: null || dueDate});
-}
-
-/**
-*
-* @method pushTask
-* @param {object} task Task object to add to `project`
-* @param {string} project Name of project to add task to
-* @return {number} Number of tasks in project after adding new task
-*/
-function pushTask(task, project) {
-	getProject(project).tasks.push(task);
+function makeTask(text, context, deferDate, dueDate, project) {
+  taskProject = typeof project === 'string' ? getProject(project) : project;
+	taskObject = app.Task({name: text, context: context || null, deferDate: deferDate || null, dueDate: dueDate || null});
+	if (project)  {
+    taskProject.tasks.push(taskObject);
+  } else {
+    doc.inboxTasks.push(taskObject);
+  }
 }
 
 /**
@@ -317,4 +314,53 @@ function logProject(tasks) {
   tasks.forEach(function(task) {
     console.log(task.project());
   });
+}
+
+/**
+*
+* @method makeProject
+* @param {string} projectName Name of new task
+* @param {string|function} [context] Context of new task
+* @param {object} [deferDate] Defer date of new task
+* @param {object} [dueDate] Due date of new task
+* @param {object|function} [folder] Folder to add project to
+*
+*/
+function makeProject(projectName, context, deferDate, dueDate, folder) {
+	projectFolder = typeof folder === 'string' ? getFolder(folder) : folder;
+	projectContext = typeof context === 'string' ? getContext(context) : context;
+	projectObject = app.Project({name: projectName, context: projectContext || null, deferDate: deferDate || null, dueDate: dueDate || null});
+	if (folder) {
+    projectFolder.projects.push(projectObject);
+  } else {
+    doc.projects.push(projectObject);
+  }
+}
+
+/**
+*
+* @method makeFolder
+* @param {string} folderName Name of new folder
+* @param {object|function} [folderToNestIn] Folder to add folder to
+*
+*/
+function makeFolder(folderName, folderToNestIn) {
+	containingFolder = typeof folderToNestIn === 'string' ? getFolder(folderToNestIn) : folderToNestIn;
+	folderObject = app.Folder({name: folderName});
+	if (folderToNestIn) {
+    containingFolder.folders.push(folderObject);
+  } else {
+    doc.folders.push(folderObject);
+  }
+}
+
+/**
+*
+* @method getFolder
+* @param {string} folderName - Name of folder to get
+* @return {function} First folder whose name matches `folderName`
+*
+*/
+function getFolder(folderName) {
+	return doc.flattenedFolders.whose({name: folderName})[0];
 }
