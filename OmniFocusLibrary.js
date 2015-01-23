@@ -10,7 +10,7 @@
  * @namespace
  * @property {boolean} includeStandardAdditions - if the app object can use the Standard Additions
  */
-app = Application('OmniFocus');
+var app = Application('OmniFocus');
 app.includeStandardAdditions = true;
 
 /**
@@ -18,11 +18,12 @@ app.includeStandardAdditions = true;
  *
  * @namespace
  */
-doc = app.defaultDocument;
+var doc = app.defaultDocument;
 
 /**
  * Returns selected tasks
  *
+ *  @global
  *  @method selected
  *  @return {Array} Array of selected tasks
  */
@@ -55,8 +56,8 @@ function allProjects() {
  * @return {array} Array of tasks that belong to contexts matching `context`
  */
 function tasksWithContext(context, inputTasks) {
-	tasks = [];
-	tasksToProcess = inputTasks ? inputTasks : allTasks();
+	var tasks = [];
+	var tasksToProcess = inputTasks ? inputTasks : allTasks();
 	tasksToProcess.forEach(function(task, index) {
 		if (task.context() !== null) {
 			if (searchString(context).test(task.context().name())) {
@@ -76,8 +77,8 @@ function tasksWithContext(context, inputTasks) {
 *
 */
 function projectsWithName(name, inputProjects) {
-	projects = [];
-	projectsToProcess = inputProjects ? inputProjects : allProjects();
+	var projects = [];
+	var projectsToProcess = inputProjects ? inputProjects : allProjects();
 	projectsToProcess.forEach(function(project, index) {
 		if (project.container() !== null) {
 			if (searchString(name).test(project.name())) {
@@ -97,8 +98,8 @@ function projectsWithName(name, inputProjects) {
 *
 */
 function tasksWithName(name, inputTasks) {
-	tasks = [];
-	tasksToProcess = inputTasks ? inputTasks : allTasks();
+	var tasks = [];
+	var tasksToProcess = inputTasks ? inputTasks : allTasks();
 	tasksToProcess.forEach(function(task, index) {
 		if (searchString(name).test(task.name())) {
 			tasks.push(task);
@@ -115,7 +116,7 @@ function tasksWithName(name, inputTasks) {
 *
 */
 function allWithName(searchTerm) {
-	tasks = tasksWithName(searchTerm).concat(tasksWithContext(searchTerm)).concat(projectsWithName(searchTerm));
+	var tasks = tasksWithName(searchTerm).concat(tasksWithContext(searchTerm)).concat(projectsWithName(searchTerm));
 	return tasks;
 }
 
@@ -157,7 +158,7 @@ function setDue(tasks, date) {
 *
 */
 function setContext(tasks, context) {
-  newContext = typeof context === 'string' ? getContext(context) : context;
+  var newContext = typeof context === 'string' ? getContext(context) : context;
 	tasks.forEach(function(task) {
 		task.context = newContext;
 	});
@@ -206,8 +207,8 @@ function inboxTasks() {
 *
 */
 function makeTask(text, context, deferDate, dueDate, project) {
-  taskProject = typeof project === 'string' ? getProject(project) : project;
-	taskObject = app.Task({name: text, context: context || null, deferDate: deferDate || null, dueDate: dueDate || null});
+  var taskProject = typeof project === 'string' ? getProject(project) : project;
+	var taskObject = app.Task({name: text, context: context || null, deferDate: deferDate || null, dueDate: dueDate || null});
 	if (project)  {
     taskProject.tasks.push(taskObject);
   } else {
@@ -226,8 +227,8 @@ function makeTask(text, context, deferDate, dueDate, project) {
 *
 */
 function updateInboxTasks(context, project, deferDate, dueDate) {
-	newContext = getContext(context);
-	newProject = getProject(project);
+	var newContext = getContext(context);
+	var newProject = getProject(project);
 	inboxTasks().forEach(function(task) {
 		task.context = newContext;
 		task.deferDate = deferDate || null;
@@ -327,9 +328,9 @@ function logProject(tasks) {
 *
 */
 function makeProject(projectName, context, deferDate, dueDate, folder) {
-	projectFolder = typeof folder === 'string' ? getFolder(folder) : folder;
-	projectContext = typeof context === 'string' ? getContext(context) : context;
-	projectObject = app.Project({name: projectName, context: projectContext || null, deferDate: deferDate || null, dueDate: dueDate || null});
+	var projectFolder = typeof folder === 'string' ? getFolder(folder) : folder;
+	var projectContext = typeof context === 'string' ? getContext(context) : context;
+	var projectObject = app.Project({name: projectName, context: projectContext || null, deferDate: deferDate || null, dueDate: dueDate || null});
 	if (folder) {
     projectFolder.projects.push(projectObject);
   } else {
@@ -345,8 +346,8 @@ function makeProject(projectName, context, deferDate, dueDate, folder) {
 *
 */
 function makeFolder(folderName, folderToNestIn) {
-	containingFolder = typeof folderToNestIn === 'string' ? getFolder(folderToNestIn) : folderToNestIn;
-	folderObject = app.Folder({name: folderName});
+	var containingFolder = typeof folderToNestIn === 'string' ? getFolder(folderToNestIn) : folderToNestIn;
+	var folderObject = app.Folder({name: folderName});
 	if (folderToNestIn) {
     containingFolder.folders.push(folderObject);
   } else {
@@ -363,4 +364,76 @@ function makeFolder(folderName, folderToNestIn) {
 */
 function getFolder(folderName) {
 	return doc.flattenedFolders.whose({name: folderName})[0];
+}
+
+/**
+*
+* @method listTitles
+* @param {array} list - List of tasks to pull titles from
+* @return {string} Concatenated list of titles
+*
+*/
+function listTitles(list) {
+  var text = '';
+  list.forEach(function(task) {
+    text += task.name() + '\n';
+  });
+  return text;
+}
+
+/**
+*
+* @method copy
+* @param {string} text - Text to copy to clipboard
+* @return {null}
+*
+*/
+function copy(text) {
+  app.setTheClipboardTo(text);
+}
+
+/**
+*
+* @method complete
+* @param {array} list - List of tasks to complete
+* @return {null}
+*
+*/
+function complete(list) {
+  list.forEach(function(task) {
+    task.completed = true;
+  });
+}
+
+/**
+*
+* @method toggleSequential
+* @param {array} list - List of projects and actions to toggle
+* @return {null}
+*
+*/
+function toggleSequential(list) {
+  list.forEach(function(task) {
+    try {
+      if (task.sequential() === true) {
+        task.sequential = false;
+      } else {
+        task.sequential = true;
+      }
+    }
+    catch (e) {
+      console.log(e);
+    }
+  });
+}
+
+/**
+*
+* @method alert
+* @param {string} text - Text to display as alert dialog
+* @return {null}
+*
+*/
+function alert(text) {
+  app.displayAlert(text);
 }
