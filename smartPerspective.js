@@ -4,13 +4,11 @@ app.includeStandardAdditions = true;
 var doc = app.defaultDocument;
 
 function openPerspective(perName) {
+	app.launch();
 	var window = app.windows[0];
 	if (window.visible()) {
 		window.perspectiveName = perName;
-	} else {
-
 	}
-	app.activate();
 }
 
 var inboxCount = doc.inboxTasks.length;

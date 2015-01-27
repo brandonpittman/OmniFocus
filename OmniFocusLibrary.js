@@ -437,3 +437,11 @@ function toggleSequential(list) {
 function alert(text) {
   app.displayAlert(text);
 }
+
+function openPerspective(perName) {
+	app.launch();
+	var window = app.windows[0];
+	if (window.visible()) {
+		window.perspectiveName = perName;
+	}
+}
