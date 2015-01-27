@@ -445,3 +445,15 @@ function openPerspective(perName) {
 		window.perspectiveName = perName;
 	}
 }
+
+function inboxCount() {
+ return doc.inboxTasks.length;
+}
+
+function firstCount() {
+  return getContext('First Thing').availableTaskCount();
+}
+
+function flaggedCount() {
+  return doc.flattenedTasks.whose({completed: false, flagged: true, blocked: false}).length;
+}
