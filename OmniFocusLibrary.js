@@ -457,3 +457,17 @@ function firstCount() {
 function flaggedCount() {
   return doc.flattenedTasks.whose({completed: false, flagged: true, blocked: false}).length;
 }
+
+function prependText(list, text) {
+  list.forEach(function(task) {
+    var oldTitle = task.name();
+    task.name = text + ' ' + oldTitle;
+  });
+}
+
+function appendText(list, text) {
+  list.forEach(function(task) {
+    var oldTitle = task.name();
+    task.name = oldTitle + ' ' + text;
+  });
+}
