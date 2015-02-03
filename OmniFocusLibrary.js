@@ -438,6 +438,12 @@ function alert(text) {
   app.displayAlert(text);
 }
 
+/**
+*
+* @method openPerspective
+* @param {string} perName - Name of perspective to open
+*
+*/
 function openPerspective(perName) {
 	app.launch();
 	var window = app.windows[0];
@@ -446,18 +452,43 @@ function openPerspective(perName) {
 	}
 }
 
+/**
+*
+* @method inboxCount
+* @return {number} Number of inbox tasks
+*
+*/
 function inboxCount() {
  return doc.inboxTasks.length;
 }
 
+/**
+*
+* @method firstCount
+* @return {number} Number of "@First Thing" tasks
+*
+*/
 function firstCount() {
   return getContext('First Thing').availableTaskCount();
 }
 
+/**
+*
+* @method flggedCount
+* @return {number} Number of flagged tasks
+*
+*/
 function flaggedCount() {
   return doc.flattenedTasks.whose({completed: false, flagged: true, blocked: false}).length;
 }
 
+/**
+*
+* @method prependText
+* @param {array} list - The tasks to be acted on
+* @param {string} text - The text to be prepended
+*
+*/
 function prependText(list, text) {
   list.forEach(function(task) {
     var oldTitle = task.name();
@@ -465,6 +496,13 @@ function prependText(list, text) {
   });
 }
 
+/**
+*
+* @method appendText
+* @param {array} list - The tasks to be acted on
+* @param {string} text - The text to be appended
+*
+*/
 function appendText(list, text) {
   list.forEach(function(task) {
     var oldTitle = task.name();
