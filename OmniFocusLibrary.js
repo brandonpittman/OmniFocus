@@ -12,6 +12,8 @@
  */
 var app = Application('OmniFocus');
 app.includeStandardAdditions = true;
+var current = Application.currentApplication();
+current.includeStandardAdditions = true;
 
 /**
  * the default document
@@ -482,6 +484,20 @@ function flaggedCount() {
   return doc.flattenedTasks.whose({completed: false, flagged: true, blocked: false}).length;
 }
 
+function routineCount() {
+  var folder = getFolder('Routine');
+  var tasks = 0;
+  folder.projects().forEach(function(project) {
+    tasks += project.numberOfAvailableTasks();
+  });
+  return tasks;
+}
+
+function landAndSeaCount() {
+  var project = getProject('Land & Sea');
+  return project.numberOfAvailableTasks();
+}
+
 /**
 *
 * @method prependText
@@ -508,4 +524,8 @@ function appendText(list, text) {
     var oldTitle = task.name();
     task.name = oldTitle + ' ' + text;
   });
+}
+
+function computerName() {
+  return current.doShellScript("scutil --get ComputerName");
 }
