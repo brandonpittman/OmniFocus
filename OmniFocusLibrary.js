@@ -482,6 +482,15 @@ function inboxCount() {
 
 /**
 *
+* @method errandCount
+* @return {number} Number of errands
+*
+*/
+function errandCount() {
+ return getContext("Errands").availableTaskCount();
+}
+/**
+*
 * @method firstCount
 * @return {number} Number of "@First Thing" tasks
 *
