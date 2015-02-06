@@ -190,6 +190,22 @@ function getProject(project) {
 
 /**
 *
+* @method setProject
+* @param {array} tasks Tasks to set project for
+* @param {(string|function)} project Project to set tasks to
+*   `project` can be a string of a context you know exists, provide your own project
+*   or you can use the `getProject` function to grab a project
+*
+*/
+function setProject(tasks, project) {
+  var newProject = typeof project === 'string' ? getProject(project) : project;
+    tasks.forEach(function(task) {
+        task.assignedContainer = newProject;
+    });
+}
+
+/**
+*
 * @method inboxTasks
 * @return {array} All inbox tasks
 *
@@ -476,7 +492,7 @@ function firstCount() {
 
 /**
 *
-* @method flggedCount
+* @method flaggedCount
 * @return {number} Number of flagged tasks
 *
 */
@@ -484,6 +500,12 @@ function flaggedCount() {
   return doc.flattenedTasks.whose({completed: false, flagged: true, blocked: false}).length;
 }
 
+/**
+*
+* @method routineCount
+* @return {number} Number of tasks in a folder titled "Routine"
+*
+*/
 function routineCount() {
   var folder = getFolder('Routine');
   var tasks = 0;
@@ -493,6 +515,12 @@ function routineCount() {
   return tasks;
 }
 
+/**
+*
+* @method landAndSeaCount
+* @return {number} Number of tasks in a project titled "Land & Sea"
+*
+*/
 function landAndSeaCount() {
   var project = getProject('Land & Sea');
   return project.numberOfAvailableTasks();
@@ -526,6 +554,12 @@ function appendText(list, text) {
   });
 }
 
+/**
+*
+* @method computerName
+* @return {string} Name of local computer
+*
+*/
 function computerName() {
   return current.doShellScript("scutil --get ComputerName");
 }
