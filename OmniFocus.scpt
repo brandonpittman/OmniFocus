@@ -1,4 +1,4 @@
-JsOsaDAS1.001.00bplist00ÑVscript_&/**
+JsOsaDAS1.001.00bplist00ÑVscript_3/**
  *
  * @file OmniFocusLibrary.js
  * @author Brandon Pittman
@@ -10,8 +10,10 @@ JsOsaDAS1.001.00bplist00ÑVscript_&/**
  * @namespace
  * @property {boolean} includeStandardAdditions - if the app object can use the Standard Additions
  */
-var app = Application('OmniFocus');
+var app = Application('omnifocus');
 app.includeStandardAdditions = true;
+var current = Application.currentApplication();
+current.includeStandardAdditions = true;
 
 /**
  * the default document
@@ -23,6 +25,7 @@ var doc = app.defaultDocument;
 /**
  * Returns selected tasks
  *
+ *  @global
  *  @method selected
  *  @return {Array} Array of selected tasks
  */
@@ -187,6 +190,22 @@ function getProject(project) {
 
 /**
 *
+* @method setProject
+* @param {array} tasks Tasks to set project for
+* @param {(string|function)} project Project to set tasks to
+*   `project` can be a string of a context you know exists, provide your own project
+*   or you can use the `getProject` function to grab a project
+*
+*/
+function setProject(tasks, project) {
+  var newProject = typeof project === 'string' ? getProject(project) : project;
+    tasks.forEach(function(task) {
+        task.assignedContainer = newProject;
+    });
+}
+
+/**
+*
 * @method inboxTasks
 * @return {array} All inbox tasks
 *
@@ -203,11 +222,12 @@ function inboxTasks() {
 * @param {object} [deferDate] Defer date of new task
 * @param {object} [dueDate] Due date of new task
 * @param {string|function} [project] Project to add task to
+* @param {boolean} [setFlag] Set flagged to true or false
 *
 */
-function makeTask(text, context, deferDate, dueDate, project) {
+function makeTask(text, context, deferDate, dueDate, project, setFlag) {
   var taskProject = typeof project === 'string' ? getProject(project) : project;
-	var taskObject = app.Task({name: text, context: context || null, deferDate: deferDate || null, dueDate: dueDate || null});
+	var taskObject = app.Task({name: text, context: context || null, deferDate: deferDate || null, dueDate: dueDate || null, flagged: setFlag});
 	if (project)  {
     taskProject.tasks.push(taskObject);
   } else {
@@ -324,12 +344,13 @@ function logProject(tasks) {
 * @param {object} [deferDate] Defer date of new task
 * @param {object} [dueDate] Due date of new task
 * @param {object|function} [folder] Folder to add project to
+* @param {boolen} [setSequential] Set sequential to true or false
 *
 */
-function makeProject(projectName, context, deferDate, dueDate, folder) {
+function makeProject(projectName, context, deferDate, dueDate, folder, setSequential) {
 	var projectFolder = typeof folder === 'string' ? getFolder(folder) : folder;
 	var projectContext = typeof context === 'string' ? getContext(context) : context;
-	var projectObject = app.Project({name: projectName, context: projectContext || null, deferDate: deferDate || null, dueDate: dueDate || null});
+	var projectObject = app.Project({name: projectName, context: projectContext || null, deferDate: deferDate || null, dueDate: dueDate || null, sequential: setSequential || null});
 	if (folder) {
     projectFolder.projects.push(projectObject);
   } else {
@@ -436,4 +457,133 @@ function toggleSequential(list) {
 function alert(text) {
   app.displayAlert(text);
 }
-                              &$jscr  úÞÞ­
+
+/**
+*
+* @method openPerspective
+* @param {string} perName - Name of perspective to open
+*
+*/
+function openPerspective(perName) {
+	app.launch();
+	var window = app.windows[0];
+	if (window.visible()) {
+		window.perspectiveName = perName;
+	}
+}
+
+/**
+*
+* @method inboxCount
+* @return {number} Number of inbox tasks
+*
+*/
+function inboxCount() {
+ return doc.inboxTasks.length;
+}
+
+/**
+*
+* @method errandCount
+* @return {number} Number of errands
+*
+*/
+function errandCount() {
+ return getContext("Errands").availableTaskCount();
+}
+/**
+*
+* @method firstCount
+* @return {number} Number of "@First Thing" tasks
+*
+*/
+function firstCount() {
+  return getContext('First Thing').availableTaskCount();
+}
+
+/**
+*
+* @method flaggedTasksCount
+* @return {number} Number of flagged tasks and projects
+*
+*/
+function flaggedTasksCount() {
+	return doc.flattenedTasks.whose({completed: false, flagged: true, blocked: false, numberOfAvailableTasks: 0, numberOfCompletedTasks: 0}).length;
+}
+
+function flaggedProjectsCount() {
+	return doc.flattenedTasks.whose({flagged: true, numberOfAvailableTasks: {'>': 0}}).length;
+}
+
+function flaggedAvailable() {
+  return flaggedTasksCount() > 0 || flaggedProjectsCount() > 0;
+}
+
+/**
+*
+* @method routineCount
+* @return {number} Number of tasks in a folder titled "Routine"
+*
+*/
+function routineCount() {
+  var folder = getFolder('Routine');
+  var tasks = 0;
+  folder.projects().forEach(function(project) {
+    tasks += project.numberOfAvailableTasks();
+  });
+  return tasks;
+}
+
+/**
+*
+* @method landAndSeaCount
+* @return {number} Number of tasks in a project titled "Land & Sea"
+*
+*/
+function landAndSeaCount() {
+  var project = getProject('Land & Sea');
+  return project.numberOfAvailableTasks();
+}
+
+/**
+*
+* @method prependText
+* @param {array} list - The tasks to be acted on
+* @param {string} text - The text to be prepended
+*
+*/
+function prependText(list, text) {
+  list.forEach(function(task) {
+    var oldTitle = task.name();
+    task.name = text + ' ' + oldTitle;
+  });
+}
+
+/**
+*
+* @method appendText
+* @param {array} list - The tasks to be acted on
+* @param {string} text - The text to be appended
+*
+*/
+function appendText(list, text) {
+  list.forEach(function(task) {
+    var oldTitle = task.name();
+    task.name = oldTitle + ' ' + text;
+  });
+}
+
+/**
+*
+* @method computerName
+* @return {string} Name of local computer
+*
+*/
+function computerName() {
+  return current.doShellScript("scutil --get ComputerName");
+}
+
+// console.log(flaggedTasksCount())
+// console.log(flaggedProjectsCount())
+// console.log(flaggedAvailable())
+                              30jscr  úÞÞ­
