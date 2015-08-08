@@ -24,10 +24,6 @@ of.setDefer(codingTasks, today)
 of.parse('Do something! @home ::misc #4pm #tomorrow //This is a note')
 ~~~
 
-## Caveats
-
-I intended to include natural language date parsing in this script, and I've been trying to get the **chrono** library to work in my OmniFocus library, but to no avail. Anyone willing to help with this would have my deepest thanks. As it stands, you need to pass a date object into any function that deals with setting deferDate or dueDate.
-
 ## Available functions
 
 - `alert(text)` — display AppleScript alert dialog
