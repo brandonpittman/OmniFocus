@@ -30,7 +30,7 @@ var doc = app.defaultDocument;
  *  @return {Array} Array of selected tasks
  */
 function selected() {
-	return app.windows[0].content.selectedTrees.value();
+	return app.windows[0].content.selectedTrees;
 }
 
 /**
