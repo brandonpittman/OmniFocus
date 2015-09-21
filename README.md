@@ -50,6 +50,6 @@ of.parse('Do something! @home ::misc #4pm #tomorrow //This is a note')
 
 For those who don't know about transport text, it's a format that OmniFocus uses to parse task information like so:
 
-`Do something! @home ::misc #5pm #tomrrow //This is a note`
+`Do something! @home ::misc #5pm #tomorrow //This is a note`
 
 The `!` makes `Do something` a flagged task. `@home` sets the context to "home". `::` is used for matching a project. Both `@` and `::` will fuzzy match existing contexts and projects. The first `#` is used for a defer date, while the second `#` is for a due date. Both support natural language parsing like the inspector in OmniFocus. Word of caution though, if only one `#` is present, OmniFocus assumes it's a due date. Lastly, `//` starts the note for a task.

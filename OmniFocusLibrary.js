@@ -224,9 +224,9 @@ function inboxTasks() {
 * @param {string|function} [project] Project to add task to
 *
 */
-function makeTask(text, context, deferDate, dueDate, project) {
+function makeTask(text, context, deferDate, dueDate, project, flagTask) {
   var taskProject = typeof project === 'string' ? getProject(project) : project;
-	var taskObject = app.Task({name: text, context: context || null, deferDate: deferDate || null, dueDate: dueDate || null});
+	var taskObject = app.Task({name: text, context: context || null, deferDate: deferDate || null, dueDate: dueDate || null, flagged: flagTask});
 	if (project)  {
     taskProject.tasks.push(taskObject);
   } else {
@@ -345,10 +345,10 @@ function logProject(tasks) {
 * @param {object|function} [folder] Folder to add project to
 *
 */
-function makeProject(projectName, context, deferDate, dueDate, folder) {
+function makeProject(projectName, context, deferDate, dueDate, folder, setSequential) {
 	var projectFolder = typeof folder === 'string' ? getFolder(folder) : folder;
 	var projectContext = typeof context === 'string' ? getContext(context) : context;
-	var projectObject = app.Project({name: projectName, context: projectContext || null, deferDate: deferDate || null, dueDate: dueDate || null});
+	var projectObject = app.Project({name: projectName, context: projectContext || null, deferDate: deferDate || null, dueDate: dueDate || null, sequential: setSequential});
 	if (folder) {
     projectFolder.projects.push(projectObject);
   } else {

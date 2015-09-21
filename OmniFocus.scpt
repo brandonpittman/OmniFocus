@@ -1,4 +1,4 @@
-JsOsaDAS1.001.00bplist00ÑVscript_3/**
+JsOsaDAS1.001.00bplist00ÑVscript_0û/**
  *
  * @file OmniFocusLibrary.js
  * @author Brandon Pittman
@@ -10,7 +10,7 @@ JsOsaDAS1.001.00bplist00ÑVscript_3/**
  * @namespace
  * @property {boolean} includeStandardAdditions - if the app object can use the Standard Additions
  */
-var app = Application('omnifocus');
+var app = Application('OmniFocus');
 app.includeStandardAdditions = true;
 var current = Application.currentApplication();
 current.includeStandardAdditions = true;
@@ -222,12 +222,11 @@ function inboxTasks() {
 * @param {object} [deferDate] Defer date of new task
 * @param {object} [dueDate] Due date of new task
 * @param {string|function} [project] Project to add task to
-* @param {boolean} [setFlag] Set flagged to true or false
 *
 */
-function makeTask(text, context, deferDate, dueDate, project, setFlag) {
+function makeTask(text, context, deferDate, dueDate, project, flagTask) {
   var taskProject = typeof project === 'string' ? getProject(project) : project;
-	var taskObject = app.Task({name: text, context: context || null, deferDate: deferDate || null, dueDate: dueDate || null, flagged: setFlag});
+	var taskObject = app.Task({name: text, context: context || null, deferDate: deferDate || null, dueDate: dueDate || null, flagged: flagTask});
 	if (project)  {
     taskProject.tasks.push(taskObject);
   } else {
@@ -344,13 +343,12 @@ function logProject(tasks) {
 * @param {object} [deferDate] Defer date of new task
 * @param {object} [dueDate] Due date of new task
 * @param {object|function} [folder] Folder to add project to
-* @param {boolen} [setSequential] Set sequential to true or false
 *
 */
 function makeProject(projectName, context, deferDate, dueDate, folder, setSequential) {
 	var projectFolder = typeof folder === 'string' ? getFolder(folder) : folder;
 	var projectContext = typeof context === 'string' ? getContext(context) : context;
-	var projectObject = app.Project({name: projectName, context: projectContext || null, deferDate: deferDate || null, dueDate: dueDate || null, sequential: setSequential || null});
+	var projectObject = app.Project({name: projectName, context: projectContext || null, deferDate: deferDate || null, dueDate: dueDate || null, sequential: setSequential});
 	if (folder) {
     projectFolder.projects.push(projectObject);
   } else {
@@ -503,20 +501,12 @@ function firstCount() {
 
 /**
 *
-* @method flaggedTasksCount
-* @return {number} Number of flagged tasks and projects
+* @method flaggedCount
+* @return {number} Number of flagged tasks
 *
 */
-function flaggedTasksCount() {
-	return doc.flattenedTasks.whose({completed: false, flagged: true, blocked: false, numberOfAvailableTasks: 0, numberOfCompletedTasks: 0}).length;
-}
-
-function flaggedProjectsCount() {
-	return doc.flattenedTasks.whose({flagged: true, numberOfAvailableTasks: {'>': 0}}).length;
-}
-
-function flaggedAvailable() {
-  return flaggedTasksCount() > 0 || flaggedProjectsCount() > 0;
+function flaggedCount() {
+  return doc.flattenedTasks.whose({completed: false, flagged: true, blocked: false}).length;
 }
 
 /**
@@ -582,8 +572,4 @@ function appendText(list, text) {
 function computerName() {
   return current.doShellScript("scutil --get ComputerName");
 }
-
-// console.log(flaggedTasksCount())
-// console.log(flaggedProjectsCount())
-// console.log(flaggedAvailable())
-                              30jscr  úÞÞ­
+                              1 jscr  úÞÞ­
