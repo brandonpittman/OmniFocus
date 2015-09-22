@@ -338,10 +338,10 @@ function logProject(tasks) {
 /**
 *
 * @method makeProject
-* @param {string} projectName Name of new task
-* @param {string|function} [context] Context of new task
-* @param {object} [deferDate] Defer date of new task
-* @param {object} [dueDate] Due date of new task
+* @param {string} projectName Name of new project
+* @param {string|function} [context] Context of new project
+* @param {object} [deferDate] Defer date of new project
+* @param {object} [dueDate] Due date of new project
 * @param {object|function} [folder] Folder to add project to
 *
 */
