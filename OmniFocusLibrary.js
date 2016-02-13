@@ -43,7 +43,9 @@ function selected() {
 /**
  *
  * @method allTasks
- * @return {Array} Array of every task in the default docfunction allTasks() {
+ * @return {Array} Array of every task in the default doc
+ */
+function allTasks() {
 	return doc.flattenedTasks.whose({completed: false})();
 }
 
@@ -58,8 +60,7 @@ function allProjects() {
 
 /**
  * @method tasksWithContext
- * @param {string} context Context name to search for
- * @param {array} [inputTasks=allTasks()] Array of tasks to search through
+ * @param {string} contextName Context name to search for
  * @return {array} Array of tasks that belong to contexts matching `context`
  */
 function tasksWithContext(contextName) {
@@ -69,7 +70,7 @@ function tasksWithContext(contextName) {
 /**
 *
 * @method projectsWithName
-* @param {string} name Name of projects to search
+* @param {string} projectName Name of projects to search
 * @return {array} Array of matching projects
 *
 */
@@ -80,8 +81,7 @@ function projectsWithName(projectName) {
 /**
 *
 * @method tasksWithName
-* @param {string} name name of tasks to search for
-* @param {array} [inputTasks=allTasks()] tasks to search
+* @param {string} taskName name of tasks to search for
 * @return {array} Matched tasks
 *
 */
