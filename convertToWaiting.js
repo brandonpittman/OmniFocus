@@ -6,8 +6,9 @@ function main(argv) {
 	chrono = Library("Chrono")
 	moment = Library('Moment')
 
-	of.setContext(sel, "Waiting")
-
+	
+	of.setContext(sel, "Waiting for...")
+	
 	sel.forEach(function(task) {
   	matchData = task.name().match(/(.+?) (.+)/)
 		metaAction = matchData[1].toUpperCase()
@@ -16,18 +17,18 @@ function main(argv) {
 		metaMessage = "Waiting for response from " + metaName
 		args = argv.split('')
 		possibleDrop = args.slice(0,4).join('').match(/drop/i)
-		if (args[0].match(/\d/)) {
-			numberOfDays = args[0]
-			metaWhen = chrono.parseDate("in " + numberOfDays + " days")
+		if (argv.match(/^\d+$/)) {
+			numberOfDays = args.join()
+			metaWhen = chrono.parseDate("in " + argv + " days")
 		} else if (possibleDrop) {
-			if (args[5].match(/\d/)) {
+			if (args[5].match(/\b\d\b/)) {
 				numberOfDays = args[5]
 				metaWhen = chrono.parseDate("in " + numberOfDays + " days")
 			} else {
 				metaWhen = chrono.parseDate(args.slice(5,args.length).join(""))
 			}
 			metaDate = moment.format("YYYY-MM-DD", metaWhen)
-
+			
 			task.name = "(" + metaDate + rightArrow + "DROP) " + metaMessage
 			return
 		} else {
