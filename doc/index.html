@@ -31,10 +31,6 @@
 							<a href="app.html">app</a>
 						</li>
 						
-						<li>
-							<a href="doc.html">doc</a>
-						</li>
-						
 
 					</ul>
 				</li>
@@ -58,10 +54,6 @@
 						</li>
 						
 						<li>
-							<a href="global.html#allWithName">allWithName</a>
-						</li>
-						
-						<li>
 							<a href="global.html#appendText">appendText</a>
 						</li>
 						
@@ -75,6 +67,10 @@
 						
 						<li>
 							<a href="global.html#copy">copy</a>
+						</li>
+						
+						<li>
+							<a href="global.html#doc">doc</a>
 						</li>
 						
 						<li>
@@ -246,7 +242,7 @@
 
 
     <section class="readme-section">
-        <article><h1>OmniFocusLibrary.js</h1><p>You'll need to compile this as <code>OmniFocus.scpt</code> and save it at <code>~/Library/Script Libraries</code> so that you can import it in another script.</p>
+        <article><h1>OmniFocusLibrary.js</h1><p>You'll need to compile <code>OmniFocusLibrary.js</code> as <code>OmniFocus.scpt</code> and save it to <code>~/Library/Script Libraries</code> so that you can import it other scripts.</p>
 <ul>
 <li><p><a href="http://pixelsnatch.com/omnifocus/OmniFocus.scpt">Download the pre-compiled library.</a></p>
 </li>
@@ -255,7 +251,7 @@
 <li><p><a href="http://github.com/brandonpittman/omnifocus">Source code is available on Github.</a></p>
 </li>
 </ul>
-<h2>Usage</h2><pre class="prettyprint source lang-javascript"><code>// An example of how to use OmniFocusLibrary.js
+<h2>Basic Usage</h2><pre class="prettyprint source lang-javascript"><code>// An example of how to use OmniFocusLibrary.js
 
 of = Library('OmniFocus')
 codingTasks = of.tasksWithContext('coding')
@@ -265,31 +261,18 @@ of.setDefer(codingTasks, today)
 
 // Using the parse method
 
-of.parse('Do something! @home ::misc #4pm #tomorrow //This is a note')</code></pre><h2>Caveats</h2><p>I intended to include natural language date parsing in this script, and I've been trying to get the <strong>chrono</strong> library to work in my OmniFocus library, but to no avail. Anyone willing to help with this would have my deepest thanks. As it stands, you need to pass a date object into any function that deals with setting deferDate or dueDate.</p>
-<h2>Available functions</h2><ul>
-<li><code>alert(text)</code> — display AppleScript alert dialog</li>
-<li><code>allTasks()</code> — all tasks in your default document</li>
-<li><code>allProjects()</code> — all projects in your default document</li>
-<li><code>copy(text)</code> — copies text to OS X's clipboard</li>
-<li><code>tasksWithName(name, inputTasks)</code> — all tasks that fuzzy match <code>name</code> — <code>inputTasks</code> defaults to <code>allTasks</code></li>
-<li><code>tasksWithContext(name, inputTasks)</code> — all tasks that have a context that fuzzy match <code>name</code> — <code>inputTasks</code> defaults to <code>allTasks</code></li>
-<li><code>projectsWithName(name, inputProjects)</code> — all projects that fuzzy match <code>name</code> — <code>inputProjects</code> defaults to <code>allProjects</code></li>
-<li><code>allWithName(name)</code> — all tasks that fuzzy match <code>name</code> with a task title, context or containing project</li>
-<li><code>setDefer(tasks, deferDate)</code> — defer an array of tasks with <code>deferDate</code></li>
-<li><code>setDue(tasks, dueDate)</code> — set an array of tasks' due date with <code>dueDate</code></li>
-<li><code>setContext(tasks, contextName)</code> — set an array of tasks' context to <code>contextName</code></li>
-<li><code>inboxTasks()</code> — all inbox tasks</li>
-<li><code>getContext(contextName)</code> — gets the first context object that matches <code>contextName</code></li>
-<li><code>getProject(projectName)</code> — gets the first project object that matches <code>projectName</code></li>
-<li><code>newTask(text, place, deferDate, dueDate)</code> — creates a new OmniFocus task object</li>
-<li><code>parse(text)</code> — parse a string of transport text as a task</li>
-<li><code>pushTask(task, project)</code> — push <code>task</code> to <code>project</code> array</li>
-<li><code>prefixTasksWith(tasks,text)</code> — prefix each task in <code>tasks</code> with <code>text</code></li>
-<li><code>updateInboxTasks(context, project, deferDate, dueDate)</code> — update all inbox tasks with the same <code>context</code>, <code>deferDate</code>, and <code>dueDate</code> and add them to <code>project</code></li>
-</ul>
+of.parse('Do something! @home ::misc #4pm #tomorrow //This is a note')
+
+// Iterating on selected tasks
+
+sel = of.selected()
+
+sel.forEach(function(task) {
+    console.log(task.name())
+})</code></pre><p>For the most up-to-date documentation, please check the jsdoc inside <code>/doc</code>.</p>
 <h2>Transport Text</h2><p>For those who don't know about transport text, it's a format that OmniFocus uses to parse task information like so:</p>
-<p><code>Do something! @home ::misc #5pm #tomrrow //This is a note</code></p>
-<p>The <code>!</code> makes <code>Do something</code> a flagged task. <code>@home</code> sets the context to &quot;home&quot;. <code>::</code> is used for matching a project. Both <code>@</code> and <code>::</code> will fuzzy match existing contexts and projects. The first <code>#</code> is used for a defer date, while the second <code>#</code> is for a due date. Both support natural language parsing like the inspector in OmniFocus. Word of caution though, if only one <code>#</code> is present, OmniFocus assumes it's a due date. Lastly, <code>//</code> starts the note for a task.</p></article>
+<p><code>Do something! @home ::misc #5pm #tomorrow //This is a note</code></p>
+<p>The <code>!</code> makes <code>Do something</code> a flagged task. <code>@home</code> sets the context to &quot;home&quot;. <code>::</code> is used for matching a project. Both <code>@</code> and <code>::</code> will fuzzy match existing contexts and projects. The first <code>#</code> is used for a defer date, while the second <code>#</code> is for a due date. Both support natural language parsing like the inspector in OmniFocus. Word of caution though, if only one <code>#</code> is present, OmniFocus assumes it's a due date. Lastly, <code>//</code> starts the note for a task. While more involved ways of creating OmniFocus tasks exist in the library, you'll find using <code>of.parse</code> as your primary means of creating tasks.</p></article>
     </section>
 
 
@@ -403,7 +386,7 @@ of.parse('Do something! @home ::misc #4pm #tomorrow //This is a note')</code></p
 					
 		<span class="jsdoc-message">
 		Documentation generated by <a href="https://github.com/jsdoc3/jsdoc">JSDoc 3.3.0-beta3</a>
-		on Thu Sep 3rd 2015 using the <a
+		on Wed Mar 2nd 2016 using the <a
 			href="https://github.com/terryweiss/docstrap">DocStrap template</a>.
 		</span>
 				</footer>

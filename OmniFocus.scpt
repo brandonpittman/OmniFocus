@@ -1,4 +1,4 @@
-JsOsaDAS1.001.00bplist00ÑVscript_0û/**
+JsOsaDAS1.001.00bplist00ÑVscript_-Ñ/**
  *
  * @file OmniFocusLibrary.js
  * @author Brandon Pittman
@@ -16,11 +16,17 @@ var current = Application.currentApplication();
 current.includeStandardAdditions = true;
 
 /**
- * the default document
+ * Returns the default document
  *
- * @namespace
+ * @global
+ * return {Object} The default document
  */
-var doc = app.defaultDocument;
+
+var doc = app.defaultDocument
+
+function document() {
+	return app.defaultDocument();
+}
 
 /**
  * Returns selected tasks
@@ -34,12 +40,13 @@ function selected() {
 }
 
 /**
+ * Returns all remaining tasks
  *
  * @method allTasks
- * @return {Array} Array of every task in the default document
+ * @return {Array} Array of every task in the default doc
  */
 function allTasks() {
-	return doc.flattenedTasks.whose({completed: false})();
+  return doc.flattenedTasks.whose({completed: false})();
 }
 
 /**
@@ -57,38 +64,19 @@ function allProjects() {
  * @param {array} [inputTasks=allTasks()] Array of tasks to search through
  * @return {array} Array of tasks that belong to contexts matching `context`
  */
-function tasksWithContext(context, inputTasks) {
-	var tasks = [];
-	var tasksToProcess = inputTasks ? inputTasks : allTasks();
-	tasksToProcess.forEach(function(task, index) {
-		if (task.context() !== null) {
-			if (searchString(context).test(task.context().name())) {
-				tasks.push(task);
-			}
-		}
-	});
-	return tasks;
+function tasksWithContext(contextName) {
+	return doc.flattenedContexts.whose({name: contextName})[0].tasks.whose({completed: false})();
 }
 
 /**
 *
 * @method projectsWithName
 * @param {string} name Name of projects to search
-* @param {array} [inputProjects=allProjects()] Array of projects to search
 * @return {array} Array of matching projects
 *
 */
-function projectsWithName(name, inputProjects) {
-	var projects = [];
-	var projectsToProcess = inputProjects ? inputProjects : allProjects();
-	projectsToProcess.forEach(function(project, index) {
-		if (project.container() !== null) {
-			if (searchString(name).test(project.name())) {
-				projects.push(project);
-			}
-		}
-	});
-	return projects;
+function projectsWithName(projectName) {
+	return doc.flattenedProjects.whose({name: projectName})[0]();
 }
 
 /**
@@ -99,27 +87,8 @@ function projectsWithName(name, inputProjects) {
 * @return {array} Matched tasks
 *
 */
-function tasksWithName(name, inputTasks) {
-	var tasks = [];
-	var tasksToProcess = inputTasks ? inputTasks : allTasks();
-	tasksToProcess.forEach(function(task, index) {
-		if (searchString(name).test(task.name())) {
-			tasks.push(task);
-		}
-	});
-	return tasks;
-}
-
-/**
-*
-* @method allWithName
-* @param {string} searchTerm Term to search for
-* @return {array} Matching tasks
-*
-*/
-function allWithName(searchTerm) {
-	var tasks = tasksWithName(searchTerm).concat(tasksWithContext(searchTerm)).concat(projectsWithName(searchTerm));
-	return tasks;
+function tasksWithName(taskName) {
+	return doc.flattenedTasks.whose({name: taskName})
 }
 
 /**
@@ -338,10 +307,10 @@ function logProject(tasks) {
 /**
 *
 * @method makeProject
-* @param {string} projectName Name of new task
-* @param {string|function} [context] Context of new task
-* @param {object} [deferDate] Defer date of new task
-* @param {object} [dueDate] Due date of new task
+* @param {string} projectName Name of new project
+* @param {string|function} [context] Context of new project
+* @param {object} [deferDate] Defer date of new project
+* @param {object} [dueDate] Due date of new project
 * @param {object|function} [folder] Folder to add project to
 *
 */
@@ -572,4 +541,4 @@ function appendText(list, text) {
 function computerName() {
   return current.doShellScript("scutil --get ComputerName");
 }
-                              1 jscr  úÞÞ­
+                              -ç jscr  úÞÞ­

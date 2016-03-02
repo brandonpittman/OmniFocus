@@ -19,7 +19,6 @@ current.includeStandardAdditions = true;
  * Returns the default document
  *
  * @global
- * method doc
  * return {Object} The default document
  */
 
@@ -41,10 +40,13 @@ function selected() {
 }
 
 /**
+ * Returns all remaining tasks
  *
  * @method allTasks
- * @return {Array} Array of every task in the default docfunction allTasks() {
-	return doc.flattenedTasks.whose({completed: false})();
+ * @return {Array} Array of every task in the default doc
+ */
+function allTasks() {
+  return doc.flattenedTasks.whose({completed: false})();
 }
 
 /**
