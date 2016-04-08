@@ -5,7 +5,7 @@ This script will take the selected tasks (or projects as well) in OmniFocus and 
  
 Copyright 2012 -- [Brandon Pittman](http://brandonpittman.net)
 
-(updates: works from OmniFocus toolbar; preserves prior text item delimiters; proper caps for OmniFocus — [dan](http://bylr.net/3/))
+(updates: works from OmniFocus toolbar; preserves prior text item delimiters; proper caps for OmniFocus � [dan](http://bylr.net/3/))
 *)
 
 tell application "OmniFocus"
@@ -27,8 +27,7 @@ end tell
 on urlEncode(str)
 	local str
 	try
-		return (do shell script "/bin/echo " & quoted form of str & Â
-			" | perl -MURI::Escape -lne 'print uri_escape($_)'")
+		return (do shell script "/bin/echo " & quoted form of str & " | perl -MURI::Escape -lne 'print uri_escape($_)'")
 	on error eMsg number eNum
 		error "Can't urlEncode: " & eMsg number eNum
 	end try
