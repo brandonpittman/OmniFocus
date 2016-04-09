@@ -1,3 +1,6 @@
+// I've been told people have had issues with the system.doShellScript call.
+// Please create an issue with details if you have.
+
 of = Library('Omnifocus')
 sel = of.selected()
 app = Application('OmniFocus')
