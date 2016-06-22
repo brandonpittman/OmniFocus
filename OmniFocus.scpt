@@ -1,4 +1,4 @@
-JsOsaDAS1.001.00bplist00ÑVscript_-Ð/**
+JsOsaDAS1.001.00bplist00ÑVscript_-Ñ/**
  *
  * @file OmniFocusLibrary.js
  * @author Brandon Pittman
@@ -540,4 +540,5 @@ function appendText(list, text) {
 */
 function computerName() {
   return current.doShellScript("scutil --get ComputerName");
-}                              -æjscr  úÞÞ­
+}
+                              -ç jscr  úÞÞ­
