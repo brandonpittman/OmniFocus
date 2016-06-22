@@ -14,7 +14,7 @@ use application "OmniFocus"
 use OFL : script "OFL"
 
 tell OFL
-    set sel to selection()
+    set sel to selectedItems()
     deferDaily(sel)  # this will set all the selected tasks to start again after completion daily
     setDefer(sel, current date)
 
@@ -34,3 +34,38 @@ For those who don't know about transport text, it's a format that OmniFocus uses
 `Do something! @home ::misc #5pm #tomorrow //This is a note`
 
 The `!` makes `Do something` a flagged task. `@home` sets the context to "home". `::` is used for matching a project. Both `@` and `::` will fuzzy match existing contexts and projects. The first `#` is used for a defer date, while the second `#` is for a due date. Both support natural language parsing like the inspector in OmniFocus. Word of caution though, if only one `#` is present, OmniFocus assumes it's a due date. Lastly, `//` starts the note for a task. While more involved ways of creating OmniFocus tasks exist in the library, you'll find using `of.parse` as your primary means of creating tasks.
+
+## Functions
+
+- selectedItems()
+- parse(transportText)
+- findContext(contextName)
+- findProject(projectName)
+- findFolder(folderName)
+- findTask(taskName)
+- allTasks()
+- allProjects()
+- allContexts()
+- setDue(input, dueDate)
+- setDefer(input, deferDate)
+- setProject(input, projectName)
+- setContext(input, contextName)
+- namePrepend(input, prependString)
+- nameAppend(input, appendString)
+- inboxTasks()
+- setComplete(input, booleanFlag)
+- setSequential(input, booleanFlag)
+- openPerspective(perspectiveName)
+- inboxCount()
+- errandsCount()
+- landAndSeaCount()
+- routineCount()
+- computerName()
+- setRepeat(input, repetitionRule)
+- deferDaily(input)
+- deferWeekly(input)
+- deferMonthly(input)
+- repeatDaily(input)
+- repeatWeekly(input)
+- repeatMonthly(input)
+- clearRepeat(input)
