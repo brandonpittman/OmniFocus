@@ -9,6 +9,7 @@ I had previously written an OmniFocus library using JavaScript for Automation, b
 ## Basic Usage
 
 ~~~applescript
+use application "OmniFocus"
 use OFL : script "OFL"
 
 tell OFL
