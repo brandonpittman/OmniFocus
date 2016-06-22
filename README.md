@@ -1,38 +1,29 @@
-# OmniFocusLibrary.js
+# OFL
 
-You'll need to compile `OmniFocusLibrary.js` as `OmniFocus.scpt` and save it to `~/Library/Script Libraries` so that you can import it other scripts.
+## Why is there a new OmniFocus library?
 
-- [Download the pre-compiled library.](http://pixelsnatch.com/omnifocus/OmniFocus.scpt)
+I had previously written an OmniFocus library using JavaScript for Automation, but it's got issues that vanilla AppleScript does not. Also, I realized that I didn't really need the fancy regex abilities from JavaScript that I thought I needed, so I went back to standard AppleScript. It works just as well, and the source code is a lot more readable. I hope you find this new library useful.
 
-- [API documentation is available here.](http://pixelsnatch.com/omnifocus/doc/index.html)
-
-- [Source code is available on Github.](http://github.com/brandonpittman/omnifocus)
+**[Source code is available on Github.](http://github.com/brandonpittman/omnifocus)**
 
 ## Basic Usage
 
-~~~javascript
-// An example of how to use OmniFocusLibrary.js
+~~~applescript
+use OFL : script "OFL"
 
-of = Library('OmniFocus')
-codingTasks = of.tasksWithContext('coding')
-today = new Date
-today.setHours(17)
-of.setDefer(codingTasks, today)
+tell OFL
+    set sel to selection()
+    deferDaily(sel)  # this will set all the selected tasks to start again after completion daily
+    setDefer(sel, current date)
 
-// Using the parse method
+   set theTask to findTask("Log food") # find the first task whose name is "Log food"
+   set theProject to findProject("Groceries")
+   set theContext to findContext("Home")
+   set theFolder to findFolder("Routine")
 
-of.parse('Do something! @home ::misc #4pm #tomorrow //This is a note')
-
-// Iterating on selected tasks
-
-sel = of.selected()
-
-sel.forEach(function(task) {
-    console.log(task.name())
-})
+   parse("Do something! @home ::misc #5pm #tomorrow //This is a note") # Parse using transport text (see below for details)
+end
 ~~~
-
-For the most up-to-date documentation, please check the jsdoc inside `/doc`.
 
 ## Transport Text
 
