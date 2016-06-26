@@ -1,4 +1,4 @@
-# OFL
+# OmniFocus Library
 
 ## Why is there a new OmniFocus library?
 
