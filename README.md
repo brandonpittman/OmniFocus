@@ -9,7 +9,7 @@ I had previously written an OmniFocus library using JavaScript for Automation, b
 
 ## Basic Usage
 
-Put *OFL* in `~/Library/Script Libraries`, or else AppleScript won't know where to find it!
+Put *omnifocus.scptd* in `~/Library/Script Libraries`, or else AppleScript won't know where to find it!
 
 ~~~applescript
 use application "OmniFocus"
