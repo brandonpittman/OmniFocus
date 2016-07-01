@@ -79,7 +79,7 @@
 \i0 \cf2  "OmniFocus"\
 	
 \b set
-\b0  \cf6 theTasks\cf2  
+\b0  \cf6 contentTasks\cf2  
 \b to
 \b0  
 \i \cf9 selected trees
@@ -88,6 +88,42 @@
 \b0  \cf7 content\cf2  
 \b of
 \b0  \cf6 theWindow\cf2 \
+	
+\b set
+\b0  \cf6 sidebarTasks\cf2  
+\b to
+\b0  
+\i \cf9 selected trees
+\i0 \cf2  
+\b of
+\b0  \cf7 sidebar\cf2  
+\b of
+\b0  \cf6 theWindow\cf2 \
+	
+\b if
+\b0  \cf3 length\cf2  
+\b of
+\b0  \cf6 contentTasks\cf2  > 0 
+\b then
+\b0 \
+		
+\b set
+\b0  \cf6 theTasks\cf2  
+\b to
+\b0  \cf6 contentTasks\cf2 \
+	
+\b else
+\b0 \
+		
+\b set
+\b0  \cf6 theTasks\cf2  
+\b to
+\b0  \cf6 sidebarTasks\cf2 \
+	
+\b end
+\b0  
+\b if
+\b0 \
 	
 \b set
 \b0  \cf6 theValues\cf2  
@@ -116,7 +152,9 @@
 \b0  
 \b repeat
 \b0 \
-	\cf6 theValues\cf2 \
+	
+\b return
+\b0  \cf6 theValues\cf2 \
 
 \b end
 \b0  \cf8 selectedItems\cf2 \
