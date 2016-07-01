@@ -1,8 +1,3 @@
----
-:title: 'Colonize: AppleScript to Wrangle Prefixed Tasks in OmniFocus'
-:tags: omnifocus, applescript
-:date: 2016-06-30
----
 I just whipped up a neat little script that uses the latest version of my OmniFocus Library. It's called [Colonize](https://github.com/brandonpittman/OmniFocus). You can use it to select some tasks in OmniFocus, and then if you run `Colonize.scpt`, it'll switch the first word of the task name into a prefix or into a bare word if the first word is already a prefix. This makes handling tasks like `Review daily logs` and `Review: daily logs` easy.
 
 Here's the code:

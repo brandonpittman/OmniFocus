@@ -1,8 +1,3 @@
----
-:title: 'Fixxxer: AppleScript to Set and Clear Prefixes in OmniFocus'
-:tags: omnifocus, applescript
-:date: 2016-06-30
----
 Another nifty script for OmniFocus. It's called [Fixxxer](https://github.com/brandonpittman/OmniFocus). It does two things. If you run it with no arguments, it will remove **colonized** prefixes from task names. If you pass it an argument, it will **add** that argument as a prefix to selected tasks. It's LaunchBar-ready. If you want to turn off the confirmation dialog, set `nagMePlease` to `false`.
 
 ```applescript
