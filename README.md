@@ -4,7 +4,7 @@
 
 I had previously written an OmniFocus library using JavaScript for Automation, but it's got issues that vanilla AppleScript does not. Also, I realized that I didn't really need the fancy regex abilities from JavaScript that I thought I needed, so I went back to standard AppleScript. It works just as well, and the source code is a lot more readable. I hope you find this new library useful.
 
-- **[Download the library](https://github.com/brandonpittman/OmniFocus/blob/master/omnifocus.scpt?raw=true)**
+- **[Download the library](https://github.com/brandonpittman/OmniFocus/blob/master/OmniFocus%20Library/omnifocus.scpt?raw=true)**
 - **[Browse the repo Github](https://github.com/brandonpittman/OmniFocus)**
 
 ## Basic Usage
