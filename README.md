@@ -1,3 +1,7 @@
+---
+title: OmniFocus Library (AppleScript)
+---
+
 # OmniFocus Library
 
 ## Why is there a new OmniFocus library?
@@ -46,33 +50,9 @@ The `!` makes `Do something` a flagged task. `@home` sets the context to "home".
 - findProject(projectName)
 - findFolder(folderName)
 - findTask(taskName)
-- findContextStarts(contextName)
-- findProjectStarts(projectName)
-- findFolderStarts(folderName)
-- findTaskStarts(taskName)
-- findContextEnds(contextName)
-- findProjectEnds(projectName)
-- findFolderEnds(folderName)
-- findTaskEnds(taskName)
-- findContextContains(contextName)
-- findProjectContains(projectName)
-- findFolderContains(folderName)
-- findTaskContains(taskName)
 - allTasks()
 - allProjects()
 - allContexts()
-- findAllContextsStarts(contextName)
-- findAllProjectsStarts(projectName)
-- findAllFoldersStarts(folderName)
-- findAllTasksStarts(taskName)
-- findAllContextsEnds(contextName)
-- findAllProjectsEnds(projectName)
-- findAllFoldersEnds(folderName)
-- findAllTasksEnds(taskName)
-- findAllContextsContains(contextName)
-- findAllProjectsContains(projectName)
-- findAllFoldersContains(folderName)
-- findAllTasksContains(taskName)
 - setDue(input, dueDate)
 - setDefer(input, deferDate)
 - setProject(input, projectName)
