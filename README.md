@@ -1,8 +1,6 @@
----
-title: OmniFocus Library (AppleScript)
----
-
 # OmniFocus Library
+
+**Notice: Probably any script in this repo will require this library. Assume you need it.**
 
 ## Why is there a new OmniFocus library?
 
