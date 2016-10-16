@@ -89,3 +89,4 @@ The `!` makes `Do something` a flagged task. `@home` sets the context to "home".
 - setConsider(input)
 - clearConsider(input)
 - toggleConsider(input)
+- kindOf(omnifocusObject) *This will be a task, project, context or folder.*
