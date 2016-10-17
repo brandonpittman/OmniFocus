@@ -75,7 +75,7 @@ The `!` makes `Do something` a flagged task. `@home` sets the context to "home".
 - repeatMonthly(input)
 - clearRepeat(input)
 - clearDefer(input)
-- clearContainer(input) # Only works on inbox tasks
+- clearContainer(input) *Only works on inbox tasks.*
 - clearContext(input)
 - setOnHold(input)
 - setActive(input)
@@ -89,4 +89,8 @@ The `!` makes `Do something` a flagged task. `@home` sets the context to "home".
 - setConsider(input)
 - clearConsider(input)
 - toggleConsider(input)
-- kindOf(omnifocusObject) *This will be a task, project, context or folder.*
+- kindOf(input) *This will be a task, project, context or folder.*
+- isProject(input)
+- isContext(input)
+- isTask(input)
+- isFolder(input)
