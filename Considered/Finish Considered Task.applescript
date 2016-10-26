@@ -1,0 +1,1 @@
+use AppleScript version "2.4" -- Yosemite (10.10) or lateruse scripting additionsuse O : script "omnifocus"on run	tell O		set sel to selectedItems()		clearConsider(sel)		setComplete(sel, true)	end tellend run
