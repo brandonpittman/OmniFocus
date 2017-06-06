@@ -1,0 +1,13 @@
+#!/usr/bin/env ruby
+
+# coding: utf-8
+require 'erb'
+require 'pathname'
+
+base = 'omnifocus:///paste?target=/folder/Routine&content='
+filepath = File.expand_path(ARGV.first)
+input = Pathname(filepath).read
+template = ERB.new(input).result
+output = ERB::Util.url_encode(template)
+
+`open "#{base + output}"`
