@@ -1,4 +1,4 @@
-# Open & Complete
+# Open and Complete
 
 This script is old and has changed greatly. It was once a very specialized script for just myself, but I've made it a general opener and exteneded it after seeing "Go to Link" from somewhere.
 
@@ -18,3 +18,5 @@ Command: echo $(date) > ~/Desktop/this\ is\ the\ date.txt
 http://google.com
 omnifocus:///task/ljalksdfjoiaj
 ```
+
+Also included in this directory is *Open But Don't Complete*—which does the same thing, but doesn't mark the task completed.
