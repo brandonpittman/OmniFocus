@@ -1,7 +1,8 @@
-JsOsaDAS1.001.00bplist00ÑVscript_-Ñ/**
+JsOsaDAS1.001.00bplist00ÑVscript_40/**
  *
  * @file OmniFocusLibrary.js
  * @author Brandon Pittman
+ *
  */
 
 /**
@@ -24,10 +25,6 @@ current.includeStandardAdditions = true;
 
 var doc = app.defaultDocument
 
-function document() {
-	return app.defaultDocument();
-}
-
 /**
  * Returns selected tasks
  *
@@ -35,9 +32,7 @@ function document() {
  *  @method selected
  *  @return {Array} Array of selected tasks
  */
-function selected() {
-	return app.windows[0].content.selectedTrees.value();
-}
+const selected = () => app.windows[0].content.selectedTrees.value()
 
 /**
  * Returns all remaining tasks
@@ -45,18 +40,18 @@ function selected() {
  * @method allTasks
  * @return {Array} Array of every task in the default doc
  */
-function allTasks() {
-  return doc.flattenedTasks.whose({completed: false})();
-}
+const allTasks = () => doc.flattenedTasks.whose({completed: false})()
+
+const totalTasks = () => allTasks().length
 
 /**
  *
  * @method allProjects
  * @return {Array} Array of every project in the default document
  */
-function allProjects() {
-	return doc.flattenedProjects.whose({completed: false})();
-}
+const allProjects = () => doc.flattenedProjects.whose({completed: false})()
+
+const allContexts = () => doc.flattenedContexts.whose({hidden: false})()
 
 /**
  * @method tasksWithContext
@@ -64,9 +59,7 @@ function allProjects() {
  * @param {array} [inputTasks=allTasks()] Array of tasks to search through
  * @return {array} Array of tasks that belong to contexts matching `context`
  */
-function tasksWithContext(contextName) {
-	return doc.flattenedContexts.whose({name: contextName})[0].tasks.whose({completed: false})();
-}
+const tasksWithContext = contextName => doc.flattenedContexts.whose({name: contextName})[0].tasks.whose({completed: false})()
 
 /**
 *
@@ -75,9 +68,7 @@ function tasksWithContext(contextName) {
 * @return {array} Array of matching projects
 *
 */
-function projectsWithName(projectName) {
-	return doc.flattenedProjects.whose({name: projectName})[0]();
-}
+const projectsWithName = projectName => doc.flattenedProjects.whose({name: projectName})[0]()
 
 /**
 *
@@ -87,9 +78,7 @@ function projectsWithName(projectName) {
 * @return {array} Matched tasks
 *
 */
-function tasksWithName(taskName) {
-	return doc.flattenedTasks.whose({name: taskName})
-}
+const tasksWithName = taskName => doc.flattenedTasks.whose({name: taskName})
 
 /**
 *
@@ -129,10 +118,8 @@ function setDue(tasks, date) {
 *
 */
 function setContext(tasks, context) {
-  var newContext = typeof context === 'string' ? getContext(context) : context;
-	tasks.forEach(function(task) {
-		task.context = newContext;
-	});
+  const newContext = typeof context === 'string' ? getContext(context) : context;
+	tasks.forEach(task => { task.context = newContext});
 }
 
 /**
@@ -167,10 +154,8 @@ function getProject(project) {
 *
 */
 function setProject(tasks, project) {
-  var newProject = typeof project === 'string' ? getProject(project) : project;
-    tasks.forEach(function(task) {
-        task.assignedContainer = newProject;
-    });
+  const newProject = typeof project === 'string' ? getProject(project) : project;
+    tasks.forEach(task => { task.assignedContainer = newProject });
 }
 
 /**
@@ -194,8 +179,8 @@ function inboxTasks() {
 *
 */
 function makeTask(text, context, deferDate, dueDate, project, flagTask) {
-  var taskProject = typeof project === 'string' ? getProject(project) : project;
-	var taskObject = app.Task({name: text, context: context || null, deferDate: deferDate || null, dueDate: dueDate || null, flagged: flagTask});
+  const taskProject = typeof project === 'string' ? getProject(project) : project;
+	const taskObject = app.Task({name: text, context: context || null, deferDate: deferDate || null, dueDate: dueDate || null, flagged: flagTask});
 	if (project)  {
     taskProject.tasks.push(taskObject);
   } else {
@@ -214,9 +199,9 @@ function makeTask(text, context, deferDate, dueDate, project, flagTask) {
 *
 */
 function updateInboxTasks(context, project, deferDate, dueDate) {
-	var newContext = getContext(context);
-	var newProject = getProject(project);
-	inboxTasks().forEach(function(task) {
+	const newContext = getContext(context);
+	const newProject = getProject(project);
+	inboxTasks().forEach( task => {
 		task.context = newContext;
 		task.deferDate = deferDate || null;
 		task.dueDate = dueDate || null;
@@ -232,9 +217,31 @@ function updateInboxTasks(context, project, deferDate, dueDate) {
 *
 */
 function prefixTasksWith(tasks,text) {
-	tasks.forEach(function(task) {
-		task.name = text + ' ' + task.name();
-	});
+	tasks.forEach(task => { task.name = text + ' ' + task.name() });
+}
+
+function namePrepend(prependString, [...input]) {
+	input.forEach( _input => { _input.name = prependString + _input.name()})
+}
+
+function nameAppend(appendString, [...input]) {
+	input.forEach(_input => { _input.name = _input.name() + appendString })
+}
+
+function setFlagged(flag, [...input]) {
+	input.forEach(_input => { _input.flagged = flag })
+}
+
+function setComplete(flag, [...input]) {
+	input.forEach(_input => { _input.completed = flag })
+}
+
+function setSequential(flag, [...input]) {
+	input.forEach(_input => { _input.sequential = flag })
+}
+
+function toggleSequential([...input]) {
+	input.forEach(_input => { _input.squential = !_input.sequential() })
 }
 
 /**
@@ -270,10 +277,8 @@ function parse(string) {
 * @param {array} tasks - An array of OmniFocus tasks
 *
 */
-function logName(tasks) {
-  tasks.forEach(function(task) {
-    console.log(task.name());
-  });
+function logName([...tasks]) {
+  tasks.forEach(task => { console.log(task.name()) })
 }
 
 /**
@@ -284,10 +289,8 @@ function logName(tasks) {
 * @param {array} tasks - An array of OmniFocus tasks
 *
 */
-function logContext(tasks) {
-  tasks.forEach(function(task) {
-    console.log(task.context());
-  });
+function logContext([...tasks]) {
+  tasks.forEach( task => { console.log(task.context()) })
 }
 
 /**
@@ -298,10 +301,8 @@ function logContext(tasks) {
 * @param {array} tasks - An array of OmniFocus tasks
 *
 */
-function logProject(tasks) {
-  tasks.forEach(function(task) {
-    console.log(task.project());
-  });
+function logProject([...tasks]) {
+  tasks.forEach(task => { console.log(task.project()) })
 }
 
 /**
@@ -315,9 +316,9 @@ function logProject(tasks) {
 *
 */
 function makeProject(projectName, context, deferDate, dueDate, folder, setSequential) {
-	var projectFolder = typeof folder === 'string' ? getFolder(folder) : folder;
-	var projectContext = typeof context === 'string' ? getContext(context) : context;
-	var projectObject = app.Project({name: projectName, context: projectContext || null, deferDate: deferDate || null, dueDate: dueDate || null, sequential: setSequential});
+	const projectFolder = typeof folder === 'string' ? getFolder(folder) : folder;
+	const projectContext = typeof context === 'string' ? getContext(context) : context;
+	const projectObject = app.Project({name: projectName, context: projectContext || null, deferDate: deferDate || null, dueDate: dueDate || null, sequential: setSequential});
 	if (folder) {
     projectFolder.projects.push(projectObject);
   } else {
@@ -333,8 +334,8 @@ function makeProject(projectName, context, deferDate, dueDate, folder, setSequen
 *
 */
 function makeFolder(folderName, folderToNestIn) {
-	var containingFolder = typeof folderToNestIn === 'string' ? getFolder(folderToNestIn) : folderToNestIn;
-	var folderObject = app.Folder({name: folderName});
+	const containingFolder = typeof folderToNestIn === 'string' ? getFolder(folderToNestIn) : folderToNestIn;
+	const folderObject = app.Folder({name: folderName});
 	if (folderToNestIn) {
     containingFolder.folders.push(folderObject);
   } else {
@@ -361,10 +362,8 @@ function getFolder(folderName) {
 *
 */
 function listTitles(list) {
-  var text = '';
-  list.forEach(function(task) {
-    text += task.name() + '\n';
-  });
+  let text = '';
+  list.forEach(task => { text += task.name() + '\n' })
   return text;
 }
 
@@ -387,9 +386,7 @@ function copy(text) {
 *
 */
 function complete(list) {
-  list.forEach(function(task) {
-    task.completed = true;
-  });
+  list.forEach(task => { task.completed = true })
 }
 
 /**
@@ -433,7 +430,7 @@ function alert(text) {
 */
 function openPerspective(perName) {
 	app.launch();
-	var window = app.windows[0];
+	const window = app.windows[0];
 	if (window.visible()) {
 		window.perspectiveName = perName;
 	}
@@ -455,7 +452,7 @@ function inboxCount() {
 * @return {number} Number of errands
 *
 */
-function errandCount() {
+function errandsCount() {
  return getContext("Errands").availableTaskCount();
 }
 /**
@@ -485,11 +482,9 @@ function flaggedCount() {
 *
 */
 function routineCount() {
-  var folder = getFolder('Routine');
-  var tasks = 0;
-  folder.projects().forEach(function(project) {
-    tasks += project.numberOfAvailableTasks();
-  });
+  const folder = getFolder('Routine');
+  let tasks = 0;
+  folder.projects().forEach(project => { tasks += project.numberOfAvailableTasks() })
   return tasks;
 }
 
@@ -500,7 +495,7 @@ function routineCount() {
 *
 */
 function landAndSeaCount() {
-  var project = getProject('Land & Sea');
+  const project = getProject('Land & Sea');
   return project.numberOfAvailableTasks();
 }
 
@@ -512,10 +507,7 @@ function landAndSeaCount() {
 *
 */
 function prependText(list, text) {
-  list.forEach(function(task) {
-    var oldTitle = task.name();
-    task.name = text + ' ' + oldTitle;
-  });
+  list.forEach(task => { const oldTitle = task.name(); task.name = text + ' ' + oldTitle })
 }
 
 /**
@@ -526,10 +518,10 @@ function prependText(list, text) {
 *
 */
 function appendText(list, text) {
-  list.forEach(function(task) {
-    var oldTitle = task.name();
+  list.forEach(task => {
+    const oldTitle = task.name();
     task.name = oldTitle + ' ' + text;
-  });
+  })
 }
 
 /**
@@ -541,4 +533,64 @@ function appendText(list, text) {
 function computerName() {
   return current.doShellScript("scutil --get ComputerName");
 }
-                              -ç jscr  úÞÞ­
+
+// Type checking
+function isContext(input) {
+	if (input.properties().pcls == "context") {
+		return true
+	} else {
+		return false
+	}
+}
+
+function isProject(input) {
+	if (input.properties().pcls == "project") {
+		return true
+	} else {
+		return false
+	}
+}
+
+function isFolder(input) {
+	if (input.properties().pcls == "folder") {
+		return true
+	} else {
+		return false
+	}
+}
+
+function isTask(input) {
+	if (input.properties().pcls == "task") {
+		return true
+	} else {
+		return false
+	}
+}
+
+// findAll methods
+function findAllFolders(input) {
+	return doc.flattenedFolders.whose({name: input, hidden: false})()
+}
+
+function findAllContexts(input) {
+	return doc.flattenedContexts.whose({name: input, hidden: false})()
+}
+
+function findAllProjects(input) {
+	return doc.flattenedFolders.whose({name: input, hidden: false})()
+}
+
+function findAllTasks(input) {
+	return doc.flattenedTasks.whose({name: input, hidden: false})()
+}
+
+function findAllProjectsFlagged() {
+	return doc.flattenedProjects.whose({flagged: true})()
+}
+
+// Helpers
+function isArray(input) { 
+	return input instanceof Array
+}
+
+allTasks()[0]                              4Fjscr  úÞÞ­
