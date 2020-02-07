@@ -94,3 +94,5 @@ The `!` makes `Do something` a flagged task. `@home` sets the context to "home".
 - isContext(input)
 - isTask(input)
 - isFolder(input)
+
+<a href="https://www.buymeacoffee.com/blp" target="_blank"><img src="https://cdn.buymeacoffee.com/buttons/default-blue.png" alt="Buy Me A Coffee" style="height: 51px !important;width: 217px !important;" ></a>
