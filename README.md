@@ -1,6 +1,9 @@
 # OmniFocus Library
 
-*Notice: Probably any script in this repo will require this library. Assume you need it.*
+## Notices
+
+- It's possible that some of these scripts may not work correctly with OmniFocus 3 (as they were all written before OF3 was released). Feel free to let me know if you find anything not working. Pull requests are welcomed.
+- Probably any script in this repo will require the library. Assume you need it.
 
 ## Why is there a new OmniFocus library?
 
@@ -42,6 +45,7 @@ The `!` makes `Do something` a flagged task. `@home` sets the context to "home".
 
 ## Functions
 
+```applescript
 - selectedItems()
 - parse(transportText)
 - findContext(contextName)
@@ -94,5 +98,6 @@ The `!` makes `Do something` a flagged task. `@home` sets the context to "home".
 - isContext(input)
 - isTask(input)
 - isFolder(input)
+```
 
 <a href="https://www.buymeacoffee.com/blp" target="_blank"><img src="https://cdn.buymeacoffee.com/buttons/default-blue.png" alt="Buy Me A Coffee" style="height: 51px !important;width: 217px !important;" ></a>
